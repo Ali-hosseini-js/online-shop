@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, A11y } from "swiper/modules";
 import "swiper/css";
@@ -23,12 +22,11 @@ function SpecialOffer() {
           prevEl: ".swiper-button-prev",
         }}
         breakpoints={{
-          450: { slidesPerView: 1 },
-
-          720: { slidesPerView: 2 },
-          950: { slidesPerView: 3 }, // 1 slide on small screens
-          1180: { slidesPerView: 4 }, // 3 slides on medium screens
-          1370: { slidesPerView: 5 }, // 5 slides on large screens
+          450: { slidesPerView: 1, spaceBetween: 20 },
+          720: { slidesPerView: 2, spaceBetween: 20 },
+          950: { slidesPerView: 3, spaceBetween: 20 },
+          1180: { slidesPerView: 4, spaceBetween: 20 },
+          1370: { slidesPerView: 5, spaceBetween: 20 },
         }}
       >
         <SwiperSlide>
@@ -61,8 +59,8 @@ function SpecialOffer() {
             />
           </SwiperSlide>
         ))}
-        <div className="swiper-button-next"></div>
-        <div className="swiper-button-prev"></div>
+        <div className="swiper-button-next hidden md:flex"></div>
+        <div className="swiper-button-prev hidden md:flex"></div>
       </Swiper>
     </div>
   );
