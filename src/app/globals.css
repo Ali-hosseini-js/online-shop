@@ -31,6 +31,37 @@ textarea {
 
 @layer utilities {
   .list-item {
-    @apply text-[16px] hover:text-main cursor-pointer;
+    @apply flex text-[16px] hover:text-main cursor-pointer;
   }
+}
+
+/* Increase specificity */
+.swiper .swiper-button-next,
+.swiper .swiper-button-prev {
+  background-color: gray; /* Set background color */
+  width: 60px; /* Set width */
+  height: 60px; /* Set height */
+  border-radius: 50%; /* Make it circular */
+  color: #5e0a8e; /* Set arrow color */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Hide disabled buttons */
+.swiper .swiper-button-next.swiper-button-disabled,
+.swiper .swiper-button-prev.swiper-button-disabled {
+  opacity: 0; /* Hide the button */
+  pointer-events: none; /* Disable click events */
+}
+
+.swiper .swiper-button-next::after,
+.swiper .swiper-button-prev::after {
+  font-size: 32px; /* Adjust the size as needed */
+}
+
+/* Add equal padding to the Swiper container */
+.swiper {
+  padding-left: 20px !important;
+  padding-right: 20px !important;
 }

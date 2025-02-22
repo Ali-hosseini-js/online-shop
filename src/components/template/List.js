@@ -6,7 +6,7 @@ function List() {
     <div className="flex justify-between max-md:justify-center py-10 px-[70px] border-b-[1px] border-black">
       <div>
         <ul className="flex gap-12 text-nowrap">
-          <li className="flex gap-1 items-center text-[16px] hover:text-main cursor-pointer">
+          <li className="gap-1 items-center list-item">
             دسته بندی کالاها
             <IoIosArrowDown />
           </li>

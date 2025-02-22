@@ -12,7 +12,8 @@
       "@/providers/*": ["src/providers/*"],
       "@/api/*": ["src/app/api/*"],
       "@/constants/*": ["src/constants/*"],
-      "@/actions/*": ["src/actions/*"]
+      "@/actions/*": ["src/actions/*"],
+      "@/data/*": ["src/data/*"]
     }
   }
 }
