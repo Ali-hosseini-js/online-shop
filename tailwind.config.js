@@ -10,6 +10,9 @@ module.exports = {
       colors: {
         main: "#5E0A8E",
         border: "#929292",
+        card: "#FAFAFA",
+        point: "#F4B740",
+        opinion: "#ADADAD",
       },
     },
   },

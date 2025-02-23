@@ -33,7 +33,17 @@ textarea {
   .list-item {
     @apply flex text-[16px] hover:text-main cursor-pointer;
   }
+
+  .accordion {
+    @apply flex justify-between items-center rounded-lg w-full h-[90px] p-8  shadow-sm cursor-pointer text-[18px] font-normal text-black hover:bg-gray-100;
+  }
+
+  .panel {
+    @apply p-8 rounded-lg bg-gray-100 text-black overflow-hidden;
+  }
 }
+
+/* swiper styles */
 
 /* Increase specificity */
 .swiper .swiper-button-next,
@@ -58,12 +68,6 @@ textarea {
 .swiper .swiper-button-next::after,
 .swiper .swiper-button-prev::after {
   font-size: 32px; /* Adjust the size as needed */
-}
-
-/* Add equal padding to the Swiper container */
-.swiper {
-  padding-left: 20px !important;
-  padding-right: 20px !important;
 }
 
 @media (max-width: 950px) {

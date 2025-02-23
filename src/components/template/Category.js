@@ -3,7 +3,7 @@ import CategoryCard from "@/module/CategoryCard";
 
 function Category() {
   return (
-    <div className="flex flex-wrap justify-center gap-6 items-center py-14">
+    <div className="flex flex-wrap justify-center gap-6 items-center">
       {category.map((category, index) => (
         <CategoryCard
           key={index}
