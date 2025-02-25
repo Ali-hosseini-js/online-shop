@@ -5,7 +5,7 @@ import Hero from "@/template/Hero";
 import List from "@/template/List";
 import Newest from "@/template/Newest";
 import Services from "@/template/Services";
-import SingleHero from "@/template/SingleHero";
+import SingleHero from "@/template/singleHero";
 import SpecialOffer from "@/template/SpecialOffer";
 import SpecificHero from "@/template/SpecificHero";
 import Suggestions from "@/template/Suggestions";
