@@ -31,7 +31,7 @@ textarea {
 
 @layer utilities {
   .list-item {
-    @apply flex text-[16px] hover:text-main cursor-pointer;
+    @apply flex text-[16px] hover:text-main cursor-pointer p-3;
   }
 
   .accordion {
@@ -85,5 +85,33 @@ textarea {
   .swiper-button-next,
   .swiper-button-prev {
     display: none !important;
+  }
+}
+
+/* scrollbar */
+
+* {
+  --sb-track-color: #506169;
+  --sb-thumb-color: #5e0a8e;
+  --sb-size: 8px;
+}
+
+*::-webkit-scrollbar {
+  width: var(--sb-size);
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--sb-track-color);
+  border-radius: 4px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--sb-thumb-color);
+  border-radius: 4px;
+}
+
+@supports not selector(::-webkit-scrollbar) {
+  * {
+    scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
   }
 }
