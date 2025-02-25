@@ -10,7 +10,7 @@ function Header() {
     <div className="flex justify-between items-center my-7">
       <Link href="/" className="flex items-center justify-center gap-3">
         <Image alt="tecnoshop" src={logo} width={56} height={63} />
-        <p className="text-2xl font-semibold text-main">تکنو شاپ</p>{" "}
+        <p className="text-2xl font-semibold text-main">تکنو شاپ</p>
       </Link>
       <div className="flex gap-3 rounded-lg items-center bg-inherit w-full max-w-[600px] p-2 max-sm:hidden border border-border ">
         <input
@@ -23,10 +23,7 @@ function Header() {
         </button>
       </div>
       <div className="flex items-center justify-center gap-3">
-        <Link
-          href="/login"
-          className="bg-main text-white flex items-center justify-center p-2 rounded-md gap-2"
-        >
+        <Link href="/login" className="button">
           <CiLogin className="w-[24px] h-[24px]" />
           <p>ورود / ثبت نام</p>
         </Link>

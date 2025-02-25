@@ -41,6 +41,17 @@ textarea {
   .panel {
     @apply p-8 rounded-lg bg-gray-100 text-black overflow-hidden;
   }
+
+  .button {
+    @apply bg-main text-white text-[16px] font-semibold flex items-center justify-center py-2 px-4 rounded-md gap-2;
+  }
+
+  .table-head {
+    @apply text-[20px] font-semibold text-right text-main py-[10px] max-md:px-[10px] text-nowrap;
+  }
+  .table-data {
+    @apply text-[16px] font-extralight text-right text-main max-md:px-[10px] text-nowrap;
+  }
 }
 
 /* swiper styles */

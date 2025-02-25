@@ -16,17 +16,16 @@ function SpecialOffer() {
         className="[&_.swiper-scrollbar]:hidden"
         modules={[Navigation, A11y]}
         spaceBetween={0}
-        slidesPerView={5}
+        slidesPerView={1}
         navigation={{
           nextEl: ".swiper-button-next",
           prevEl: ".swiper-button-prev",
         }}
         breakpoints={{
-          450: { slidesPerView: 1, spaceBetween: 20 },
-          720: { slidesPerView: 2, spaceBetween: 20 },
-          950: { slidesPerView: 3, spaceBetween: 20 },
-          1180: { slidesPerView: 4, spaceBetween: 20 },
-          1370: { slidesPerView: 5, spaceBetween: 20 },
+          640: { slidesPerView: 1, spaceBetween: 10 },
+          768: { slidesPerView: 2, spaceBetween: 10 },
+          1024: { slidesPerView: 3, spaceBetween: 10 },
+          1280: { slidesPerView: 5, spaceBetween: 10 },
         }}
       >
         <SwiperSlide>

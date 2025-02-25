@@ -29,17 +29,16 @@ function Suggestions() {
           className="[&_.swiper-scrollbar]:hidden"
           modules={[Navigation, A11y]}
           spaceBetween={0}
-          slidesPerView={5}
+          slidesPerView={1}
           navigation={{
             nextEl: ".swiper-button-next",
             prevEl: ".swiper-button-prev",
           }}
           breakpoints={{
-            450: { slidesPerView: 1, spaceBetween: 40 },
-            720: { slidesPerView: 2, spaceBetween: 40 },
-            950: { slidesPerView: 3, spaceBetween: 40 },
-            1180: { slidesPerView: 4, spaceBetween: 40 },
-            1370: { slidesPerView: 5, spaceBetween: 40 },
+            640: { slidesPerView: 1, spaceBetween: 10 },
+            768: { slidesPerView: 2, spaceBetween: 10 },
+            1024: { slidesPerView: 3, spaceBetween: 10 },
+            1280: { slidesPerView: 5, spaceBetween: 10 },
           }}
         >
           {suggestions.map((suggestion, index) => (
