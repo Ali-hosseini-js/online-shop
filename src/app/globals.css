@@ -49,8 +49,17 @@ textarea {
   .table-head {
     @apply text-[20px] font-semibold text-right text-main py-[10px] max-md:px-[10px] text-nowrap;
   }
+
   .table-data {
     @apply text-[16px] font-extralight text-right text-main max-md:px-[10px] text-nowrap;
+  }
+
+  .timer {
+    @apply text-main text-3xl font-bold rounded-lg w-10 h-10 flex items-center justify-center;
+  }
+
+  .timer-day {
+    @apply text-xs font-extralight text-main;
   }
 }
 

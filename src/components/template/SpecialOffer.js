@@ -8,6 +8,7 @@ import { offer } from "@/data/offer";
 import OfferCard from "@/module/OfferCard";
 import Link from "next/link";
 import { IoIosArrowBack } from "react-icons/io";
+import CountdownTimer from "@/module/Timer";
 
 function SpecialOffer() {
   return (
@@ -33,7 +34,9 @@ function SpecialOffer() {
             <p className="text-white text-[31px] font-semibold text-center">
               تخفیف های شگفت انگیز
             </p>
-            <p>timer</p>
+            <div className="flex justify-center items-center h-screen">
+              <CountdownTimer date="2025-03-10" time="19:30" />
+            </div>
             <div className="flex justify-start w-full absolute bottom-0 right-0">
               <Link
                 href="/offer"

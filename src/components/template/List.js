@@ -8,16 +8,7 @@ import MegaMenu from "@/module/MegaMenu";
 function List() {
   const [activeMenu, setActiveMenu] = useState(false);
 
-  const clickHandler = () => {
-    if (!activeMenu) {
-      return setActiveMenu(true);
-    } else {
-      return;
-    }
-  };
-
   useEffect(() => {
-    console.log("Modal state:", activeMenu);
     if (activeMenu) {
       document.documentElement.style.overflow = "hidden";
     } else {
@@ -38,7 +29,7 @@ function List() {
               className={`items-center justify-center gap-3 list-item rounded-lg ${
                 activeMenu ? "bg-gray-100 text-main" : ""
               }`}
-              onMouseEnter={() => clickHandler()}
+              onMouseEnter={() => setActiveMenu(true)}
             >
               دسته بندی کالا
               <IoIosArrowDown
