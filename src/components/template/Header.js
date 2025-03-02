@@ -9,12 +9,12 @@ import List from "@/template/List";
 function Header() {
   return (
     <>
-      <div className="flex justify-between items-center my-7">
+      <div className="flex justify-between items-center my-7 max-lg:flex-col max-lg:gap-5">
         <Link href="/" className="flex items-center justify-center gap-3">
           <Image alt="tecnoshop" src={logo} width={56} height={63} />
           <p className="text-2xl font-semibold text-main">تکنو شاپ</p>
         </Link>
-        <div className="flex gap-3 rounded-lg items-center bg-inherit w-full max-w-[600px] p-2 max-sm:hidden border border-border ">
+        <div className="flex gap-3 rounded-lg items-center bg-inherit w-full max-w-[600px] p-2 border border-border ">
           <input
             className="bg-inherit p-2 w-full focus:outline-none"
             type="text"
