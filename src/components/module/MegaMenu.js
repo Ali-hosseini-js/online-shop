@@ -1,47 +1,19 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { menuCategories } from "@/data/menuCategories";
 import Link from "next/link";
 
-const MegaMenu = ({ setActiveMenu }) => {
+const MegaMenu = ({ className }) => {
   const [activeCategory, setActiveCategory] = useState("mobile");
-  const megaMenuRef = useRef(null);
 
   const menuHandler = (id) => {
     setActiveCategory(id);
   };
 
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (megaMenuRef.current && !megaMenuRef.current.contains(event.target)) {
-        setActiveMenu(false);
-      }
-    };
-
-    const handleEscapeKey = (event) => {
-      if (event.key === "Escape") {
-        setActiveMenu(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    document.addEventListener("keydown", handleEscapeKey);
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("keydown", handleEscapeKey);
-    };
-  }, [setActiveMenu]);
-
   return (
-    <>
-      <div className="fixed top-[248px] right-0 w-full h-full backdrop-blur-[3px] z-10"></div>
-
-      <div
-        ref={megaMenuRef}
-        className="absolute flex justify-center text-center rounded-md  bg-white border-2 border-solid border-[#22262e] p-5  h-[400px] w-[950px] z-20"
-      >
+    <div className={`hidden ${className}`}>
+      <div className="absolute flex justify-start text-center rounded-md  bg-white border-2 border-solid border-[#22262e] p-5  h-[400px] w-[950px] z-20">
         {/* Right side */}
         <div className="flex relative w-full h-full ">
           <div>
@@ -83,7 +55,7 @@ const MegaMenu = ({ setActiveMenu }) => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -4,7 +4,7 @@ import React from "react";
 
 function Hero() {
   return (
-    <div className="grid grid-flow-col grid-rows-2 gap-4">
+    <div className="grid grid-flow-col grid-rows-2 gap-4 mt-10">
       <Link href="/category/rapoo" className="row-span-2 col-span-3">
         <Image
           alt="خرید محصولات رپو"
