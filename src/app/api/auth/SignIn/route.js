@@ -2,6 +2,7 @@ import OTP from "@/models/OTP";
 import ShopUser from "@/models/User";
 import connectDB from "@/utils/connectDB";
 import { sign } from "jsonwebtoken";
+import { NextResponse } from "next/server";
 
 export async function POST(req) {
   try {
@@ -9,7 +10,7 @@ export async function POST(req) {
   } catch (error) {
     throw new Error("مشکلی در سرور رخ داده است.");
   }
-  const { mobile, otp } = req.json();
+  const { mobile, otp } = await req.json();
 
   if (!otp) throw new Error("لطفا کد ارسال شده را وارد کنید");
 
@@ -30,5 +31,5 @@ export async function POST(req) {
     expiresIn: "1d",
   });
 
-  return NextResponse.json({ token }, { status: 200 });
+  return NextResponse.json({ message: token }, { status: 200 });
 }

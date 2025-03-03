@@ -8,9 +8,9 @@ import LoginTimer from "@/module/LoginTimer";
 import logo from "@/public/logo.svg";
 import OtpInput from "@/module/OtpInput";
 import { setCookie } from "@/utils/cookie";
-
+import { checkOtp } from "@/services/CheckOtp";
 function CheckOtpForm({ mobile, setStep }) {
-  const [otp, setOTP] = useState("");
+  const [otp, setOTP] = useState(null);
 
   const router = useRouter();
 
@@ -19,14 +19,14 @@ function CheckOtpForm({ mobile, setStep }) {
   };
 
   const submitHandler = async (event) => {
-    event.preventDefault();
-    setLoading(true);
+    // setLoading(true);
     const { response, error } = await checkOtp(mobile, otp);
-    setLoading(false);
+
+    // setLoading(false);
     if (error) {
       toast.error(error);
     } else {
-      setCookie(response.token);
+      setCookie(response.data.message);
       router.push("/");
     }
   };
@@ -45,7 +45,7 @@ function CheckOtpForm({ mobile, setStep }) {
           </h2>
         </div>
 
-        <form onSubmit={submitHandler} className="flex flex-col gap-4">
+        <form className="flex flex-col gap-4">
           <div className="flex flex-col gap-4">
             <label
               htmlFor="phone"
@@ -53,7 +53,11 @@ function CheckOtpForm({ mobile, setStep }) {
             >
               کد تایید را وارد کنید.
             </label>
-            <OtpInput length={5} onChangeOtp={handleChangeOtp} />
+            <OtpInput
+              length={5}
+              onChangeOtp={handleChangeOtp}
+              onComplete={submitHandler}
+            />
             <div className="flex justify-between">
               <LoginTimer mobile={mobile} />
               <button

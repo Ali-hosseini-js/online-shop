@@ -1,3 +1,4 @@
+import { getCookie } from "@/utils/cookie";
 import axios from "axios";
 
 const api = axios.create({

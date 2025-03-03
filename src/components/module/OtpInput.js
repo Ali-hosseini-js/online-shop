@@ -1,17 +1,23 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
-const OtpInput = ({ length, onChangeOtp }) => {
+const OtpInput = ({ length, onChangeOtp, onComplete }) => {
   const [otp, setOtp] = useState(new Array(length).fill(""));
+  const firstInputRef = useRef(null);
+
+  useEffect(() => {
+    // Focus on first input when component mounts
+    if (firstInputRef.current) {
+      firstInputRef.current.focus();
+    }
+  }, []);
 
   const handleChange = (element, index) => {
     const value = element.value;
-    if (!value) return;
-
     const newOtp = [...otp];
-    newOtp[index] = value;
+    newOtp[index] = value.slice(-1);
     setOtp(newOtp);
 
-    if (index < length - 1 && value) {
+    if (value && index < length - 1) {
       element.nextSibling.focus();
     }
 
@@ -19,15 +25,17 @@ const OtpInput = ({ length, onChangeOtp }) => {
   };
 
   const handleBackspace = (element, index) => {
-    const newOtp = [...otp];
-    newOtp[index] = "";
-    setOtp(newOtp);
-
-    if (index > 0) {
-      element.previousSibling.focus();
+    if (otp[index] === "") {
+      // Only move back if current input is empty
+      if (index > 0) {
+        element.previousSibling.focus();
+      }
+    } else {
+      const newOtp = [...otp];
+      newOtp[index] = "";
+      setOtp(newOtp);
+      onChangeOtp(newOtp.join(""));
     }
-
-    onChangeOtp(newOtp.join(""));
   };
 
   return (
@@ -35,6 +43,7 @@ const OtpInput = ({ length, onChangeOtp }) => {
       {otp.map((data, index) => (
         <input
           key={index}
+          ref={index === 0 ? firstInputRef : null}
           type="text"
           maxLength="1"
           value={data}
@@ -43,10 +52,18 @@ const OtpInput = ({ length, onChangeOtp }) => {
           }`}
           onChange={(e) => handleChange(e.target, index)}
           onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              if (otp.join("").length === length) {
+                onComplete?.();
+              }
+            }
             if (e.key === "Backspace") {
+              e.preventDefault(); // Prevent default backspace behavior
               handleBackspace(e.target, index);
             }
           }}
+          onFocus={(e) => e.target.select()}
         />
       ))}
     </div>

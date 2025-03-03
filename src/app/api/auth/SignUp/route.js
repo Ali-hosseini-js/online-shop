@@ -1,4 +1,4 @@
-import DivarUser from "@/models/DivarUser";
+import ShopUser from "@/models/User";
 import OTP from "@/models/OTP";
 import connectDB from "@/utils/connectDB";
 import { NextResponse } from "next/server";
@@ -10,13 +10,13 @@ export async function POST(req) {
     const { mobile } = await req.json();
     console.log({ mobile });
 
-    const otp = Math.floor(100000 + Math.random() * 900000);
+    const otp = Math.floor(10000 + Math.random() * 90000);
     console.log(otp);
 
-    const existingUser = await DivarUser.findOne({ mobile });
+    const existingUser = await ShopUser.findOne({ mobile });
 
     if (!existingUser) {
-      await DivarUser.create({
+      await ShopUser.create({
         mobile: mobile,
       });
     }

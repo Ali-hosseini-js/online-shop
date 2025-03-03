@@ -4,13 +4,15 @@ import Image from "next/image";
 import logo from "@/public/logo.svg";
 import { useState } from "react";
 import { sendOtp } from "@/services/SendOtp";
+
 function SendOtpForm({ mobile, setMobile, setStep }) {
   const [isChecked, setIsChecked] = useState(false);
   const submitHandler = async (event) => {
     event.preventDefault();
     const { response, error } = await sendOtp(mobile);
-    const data = await response.json();
-    toast.success(data.message);
+    console.log("otp:", response.data.message);
+    const otp = response.data.message;
+    toast.success(otp);
     if (response.status === 200) setStep(2);
   };
 
@@ -45,7 +47,7 @@ function SendOtpForm({ mobile, setMobile, setStep }) {
               name="phone"
               type="tel"
               value={mobile}
-              //   onChange={(e) => setMobile(e.target.value)}
+              onChange={(e) => setMobile(e.target.value)}
               placeholder="09XXXXXXXXX"
               className="p-3 border border-none bg-gray-100 rounded-lg focus:outline-none focus:border-main"
               pattern="^09\d{9}$"

@@ -1,17 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import Image from "next/image";
-import Link from "next/link";
+import { redirect } from "next/navigation";
 import AuthPage from "@/layout/AuthPage";
+import { getCookie } from "@/utils/cookie";
 
 function LoginPage() {
-  useEffect(() => {
-    return () => {
-      document.documentElement.style.overflow = "hidden";
-    };
-  }, []);
+  const token = getCookie();
+  if (token) {
+    redirect("/");
+  }
 
   return <AuthPage />;
 }

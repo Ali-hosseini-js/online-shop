@@ -31,9 +31,15 @@ const MegaMenu = ({ className }) => {
             </ul>
           </div>
           {/* Left Side */}
-          <div>
-            {activeCategory && (
-              <div className="absolute right-[160px] p-4 grid grid-cols-4 gap-4 w-[800px] h-full scrollbar overflow-y-scroll scroll-smooth">
+          {activeCategory && (
+            <div
+              className="absolute right-[160px] p-4 grid grid-cols-4 gap-4 w-[800px] h-full overflow-y-auto"
+              style={{ direction: "ltr" }}
+            >
+              <div
+                style={{ direction: "rtl" }}
+                className="col-span-4 grid grid-cols-4 gap-4"
+              >
                 {menuCategories
                   .find((category) => category.id === activeCategory)
                   ?.subCategories.map((sub, idx) => (
@@ -51,8 +57,8 @@ const MegaMenu = ({ className }) => {
                     </div>
                   ))}
               </div>
-            )}
-          </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

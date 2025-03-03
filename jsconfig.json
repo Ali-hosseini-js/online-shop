@@ -13,7 +13,9 @@
       "@/api/*": ["src/app/api/*"],
       "@/constants/*": ["src/constants/*"],
       "@/actions/*": ["src/actions/*"],
-      "@/data/*": ["src/data/*"]
+      "@/data/*": ["src/data/*"],
+      "@/configs/*": ["src/configs/*"],
+      "@/services/*": ["src/services/*"]
     }
   }
 }
