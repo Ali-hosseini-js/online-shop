@@ -1,6 +1,7 @@
 import { vazir } from "@/utils/fonts";
 import "./globals.css";
 import Layout from "@/layout/Layout";
+import NextAuthProvider from "src/provider/NextAuthProvider";
 
 export const metadata = {
   title: "تکنو شاپ",
@@ -12,7 +13,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="fa" dir="rtl">
       <body className={vazir.className}>
-        <Layout>{children}</Layout>
+        <NextAuthProvider>
+          <Layout>{children}</Layout>
+        </NextAuthProvider>
       </body>
     </html>
   );

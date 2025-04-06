@@ -1,20 +1,11 @@
-"use client";
-
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
 import AuthPage from "@/layout/AuthPage";
-import { getCookie } from "@/utils/cookie";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../api/auth/[...nextauth]/route";
+import { redirect } from "next/navigation";
 
-function LoginPage() {
-  const router = useRouter();
-
-  useEffect(() => {
-    const token = getCookie();
-    if (token) {
-      router.push("/");
-    }
-  }, [router]);
-
+async function LoginPage() {
+  const session = await getServerSession(authOptions);
+  if (session) redirect("/");
   return <AuthPage />;
 }
 

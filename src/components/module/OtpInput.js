@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 
-const OtpInput = ({ length, onChangeOtp, onComplete }) => {
+const OtpInput = ({ length, onChangeOtp }) => {
   const [otp, setOtp] = useState(new Array(length).fill(""));
   const firstInputRef = useRef(null);
 
@@ -52,12 +52,6 @@ const OtpInput = ({ length, onChangeOtp, onComplete }) => {
           }`}
           onChange={(e) => handleChange(e.target, index)}
           onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              e.preventDefault();
-              if (otp.join("").length === length) {
-                onComplete?.();
-              }
-            }
             if (e.key === "Backspace") {
               e.preventDefault(); // Prevent default backspace behavior
               handleBackspace(e.target, index);

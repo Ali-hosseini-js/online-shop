@@ -3,17 +3,21 @@ import Link from "next/link";
 import Image from "next/image";
 import logo from "@/public/logo.svg";
 import { useState } from "react";
-import { sendOtp } from "@/services/SendOtp";
 
 function SendOtpForm({ mobile, setMobile, setStep }) {
   const [isChecked, setIsChecked] = useState(false);
   const submitHandler = async (event) => {
     event.preventDefault();
-    const { response, error } = await sendOtp(mobile);
-    console.log("otp:", response.data.message);
-    const otp = response.data.message;
-    toast.success(otp);
-    if (response.status === 200) setStep(2);
+    const res = await fetch("/api/auth/signup", {
+      method: "POST",
+      body: JSON.stringify({ mobile }),
+      headers: { "Content-Type": "application/json" },
+    });
+    const data = await res.json();
+    console.log(data.message);
+
+    toast.success(data.message);
+    if (res.status === 200) setStep(2);
   };
 
   const handleCheckbox = (e) => {

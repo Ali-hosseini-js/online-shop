@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { CiShoppingCart } from "react-icons/ci";
@@ -5,8 +7,10 @@ import { CiLogin } from "react-icons/ci";
 import { CiSearch } from "react-icons/ci";
 import logo from "@/public/logo.svg";
 import List from "@/template/List";
-
+import { useSession } from "next-auth/react";
 function Header() {
+  // const session = await getServerSession(authOptions);
+  const { data: session } = useSession();
   return (
     <>
       <div className="flex justify-between items-center my-7 max-lg:flex-col max-lg:gap-5">
@@ -25,10 +29,12 @@ function Header() {
           </button>
         </div>
         <div className="flex items-center justify-center gap-3">
-          <Link href="/login" className="button">
-            <CiLogin className="w-[24px] h-[24px]" />
-            <p>ورود / ثبت نام</p>
-          </Link>
+          {session ? null : (
+            <Link href="/login" className="button">
+              <CiLogin className="w-[24px] h-[24px]" />
+              <p>ورود / ثبت نام</p>
+            </Link>
+          )}
           <Link
             href="/checkout"
             className="border-r-[1px] border-gray-500 pr-3"
