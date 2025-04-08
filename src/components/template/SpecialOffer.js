@@ -48,17 +48,9 @@ function SpecialOffer() {
             </div>
           </div>
         </SwiperSlide>
-        {offer.map((offer, index) => (
-          <SwiperSlide key={index}>
-            <OfferCard
-              href={offer.href}
-              image={offer.image}
-              alt={offer.alt}
-              description={offer.description}
-              price={offer.price}
-              discountPrice={offer.discountPrice}
-              discount={offer.discount}
-            />
+        {offer.map((offer) => (
+          <SwiperSlide key={offer.id}>
+            <OfferCard data={offer} />
           </SwiperSlide>
         ))}
         <div className="swiper-button-next hidden md:flex"></div>

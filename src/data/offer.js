@@ -1,5 +1,6 @@
 export const offer = [
   {
+    id: "1",
     alt: "لپ تاپ",
     image: "/offer/laptop-offer.jpg",
     description: "لپ تاپ ایسوس-Notebook X16...",
@@ -9,6 +10,7 @@ export const offer = [
     discount: "10",
   },
   {
+    id: "2",
     alt: "ماوس",
     image: "/offer/mouse-offer.jpg",
     description: "موس  کولر مـستـر CM ۱۱۰",
@@ -18,6 +20,7 @@ export const offer = [
     discount: "10",
   },
   {
+    id: "3",
     alt: "هدست",
     image: "/offer/headset-offer.jpg",
     description: "هدست  کولرمستر CH ۳۳۱",
@@ -27,6 +30,7 @@ export const offer = [
     discount: "10",
   },
   {
+    id: "4",
     alt: "کیبورد",
     image: "/offer/keyboard-offer.jpg",
     description: "کیبورد گیمینگ  مکانیکال  ریزر BlackWidow Essential Green",
@@ -36,6 +40,7 @@ export const offer = [
     discount: "10",
   },
   {
+    id: "5",
     alt: "مانیتور",
     image: "/offer/monitor-offer.jpg",
     description: "مانیتور سامسونگ مدل LS۱۹A ۳۳۰ NH-M سایز ۱۹ اینچ",
@@ -45,6 +50,7 @@ export const offer = [
     discount: "10",
   },
   {
+    id: "6",
     alt: "لپ تاپ",
     image: "/offer/laptop-offer.jpg",
     description: "لپ تاپ ایسوس-Notebook X16...",
@@ -54,6 +60,7 @@ export const offer = [
     discount: "10",
   },
   {
+    id: "7",
     alt: "ماوس",
     image: "/offer/mouse-offer.jpg",
     description: "موس  کولر مـستـر CM ۱۱۰",
@@ -63,6 +70,7 @@ export const offer = [
     discount: "10",
   },
   {
+    id: "8",
     alt: "هدست",
     image: "/offer/headset-offer.jpg",
     description: "هدست  کولرمستر CH ۳۳۱",

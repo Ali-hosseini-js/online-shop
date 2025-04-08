@@ -2,6 +2,7 @@ import { vazir } from "@/utils/fonts";
 import "./globals.css";
 import Layout from "@/layout/Layout";
 import NextAuthProvider from "src/provider/NextAuthProvider";
+import CartProvider from "src/context/CartContext";
 
 export const metadata = {
   title: "تکنو شاپ",
@@ -14,7 +15,9 @@ export default function RootLayout({ children }) {
     <html lang="fa" dir="rtl">
       <body className={vazir.className}>
         <NextAuthProvider>
-          <Layout>{children}</Layout>
+          <CartProvider>
+            <Layout>{children}</Layout>
+          </CartProvider>
         </NextAuthProvider>
       </body>
     </html>

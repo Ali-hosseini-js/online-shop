@@ -41,17 +41,9 @@ function Newest() {
             1280: { slidesPerView: 5, spaceBetween: 10 },
           }}
         >
-          {newProduct.map((product, index) => (
-            <SwiperSlide key={index}>
-              <NewestCard
-                href={product.href}
-                image={product.image}
-                alt={product.alt}
-                description={product.description}
-                price={product.price}
-                opinion={product.opinion}
-                point={product.point}
-              />
+          {newProduct.map((product) => (
+            <SwiperSlide key={product.id}>
+              <NewestCard data={product} />
             </SwiperSlide>
           ))}
           <div className="swiper-button-next hidden md:flex"></div>

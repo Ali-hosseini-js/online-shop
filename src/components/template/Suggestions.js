@@ -41,17 +41,9 @@ function Suggestions() {
             1280: { slidesPerView: 5, spaceBetween: 10 },
           }}
         >
-          {suggestions.map((suggestion, index) => (
-            <SwiperSlide key={index}>
-              <NewestCard
-                href={suggestion.href}
-                image={suggestion.image}
-                alt={suggestion.alt}
-                description={suggestion.description}
-                price={suggestion.price}
-                opinion={suggestion.opinion}
-                point={suggestion.point}
-              />
+          {suggestions.map((suggestion) => (
+            <SwiperSlide key={suggestion.id}>
+              <NewestCard data={suggestion} />
             </SwiperSlide>
           ))}
           <div className="swiper-button-next hidden md:flex"></div>

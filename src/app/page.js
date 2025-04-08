@@ -9,6 +9,7 @@ import SpecialOffer from "@/template/SpecialOffer";
 import SpecificHero from "@/template/SpecificHero";
 import Suggestions from "@/template/Suggestions";
 import UserQuestions from "@/template/UserQuestions";
+import { Toaster } from "react-hot-toast";
 
 export default function Home() {
   return (
@@ -24,6 +25,7 @@ export default function Home() {
       <UserQuestions />
       <BlogMain />
       <Services />
+      <Toaster />
     </div>
   );
 }
