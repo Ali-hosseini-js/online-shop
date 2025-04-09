@@ -2,12 +2,18 @@
 
 import BasketCard from "@/module/ckeckout/BasketCard";
 import BasketSidebar from "@/module/ckeckout/BasketSidebar";
+import { useRouter } from "next/navigation";
 import { useCart } from "src/context/CartContext";
 
 function Checkout() {
   const [state, dispatch] = useCart();
+  const router = useRouter();
 
   const clickHandler = (type, payload) => dispatch({ type, payload });
+
+  const navHandler = () => {
+    router.push("/checkout/location");
+  };
 
   if (!state.itemsCounter) {
     return (
@@ -19,12 +25,12 @@ function Checkout() {
 
   return (
     <div className="flex justify-between items-start py-[10px] min-h-[1000px]">
-      <div className="w-full">
+      <div className="">
         {state.selectedItems.map((p) => (
           <BasketCard key={p.id} data={p} clickHandler={clickHandler} />
         ))}
       </div>
-      <BasketSidebar state={state} clickHandler={clickHandler} />
+      <BasketSidebar state={state} clickHandler={navHandler} />
     </div>
   );
 }

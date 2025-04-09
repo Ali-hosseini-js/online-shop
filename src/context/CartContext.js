@@ -8,6 +8,7 @@ const initialState = {
   itemsCounter: 0,
   discountCounter: 0,
   total: 0,
+  cargo: "49000",
   checkout: false,
 };
 
@@ -72,6 +73,8 @@ const reducer = (state, action) => {
       return {
         selectedItems: [],
         itemsCounter: 0,
+        discountCounter: 0,
+        cargo: "49000",
         total: 0,
         ckeckout: true,
       };

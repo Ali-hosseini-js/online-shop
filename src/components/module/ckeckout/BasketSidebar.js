@@ -1,6 +1,6 @@
 import { sp, e2p } from "@/utils/replaceNumber";
 
-function BasketSidebar({ state, clickHandler }) {
+function BasketSidebar({ state, clickHandler, location }) {
   return (
     <div className="flex flex-col border border-opinion rounded-xl gap-8 p-4 w-[400px]">
       <div className="flex items-center justify-between">
@@ -13,19 +13,40 @@ function BasketSidebar({ state, clickHandler }) {
         </p>
       </div>
       <div className="flex items-center justify-between">
-        <p>جمع سبد خرید</p>
-        <p className="">
-          {sp(state.discountCounter)} <span className="text-xs">تومان</span>
-        </p>
-      </div>
-      <div className="flex items-center justify-between">
         <p className="text-[#ED2E2E]">سود شما از خرید</p>
         <p>
           {sp(state.total - state.discountCounter)}{" "}
           <span className="text-xs">تومان</span>
         </p>
       </div>
-      <button className="text-white bg-main rounded-xl w-[270px] h-[55px] mx-auto">
+      <div className="flex items-center justify-between">
+        <p>جمع سبد خرید</p>
+        <p className="">
+          {sp(state.discountCounter)} <span className="text-xs">تومان</span>
+        </p>
+      </div>
+      {location ? (
+        <>
+          <div className="flex items-center justify-between">
+            <p>هزینه ارسال</p>
+            <p>
+              {sp(state.cargo)} <span className="text-xs">تومان</span>
+            </p>
+          </div>
+
+          <div className="flex items-center justify-between">
+            <p>مبلغ قابل پرداخت</p>
+            <p className="">
+              {sp(+state.discountCounter + +state.cargo)}{" "}
+              <span className="text-xs">تومان</span>
+            </p>
+          </div>
+        </>
+      ) : null}
+      <button
+        className="text-white bg-main rounded-xl w-[270px] h-[55px] mx-auto"
+        onClick={() => clickHandler("CHECKOUT")}
+      >
         تایید و تکمیل سفارش
       </button>
       <p className="text-[#62666D] text-justify">
