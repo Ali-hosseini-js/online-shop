@@ -1,8 +1,4 @@
 "use client";
-import { BsHandbag } from "react-icons/bs";
-import { IoLocationOutline } from "react-icons/io5";
-import { CiCreditCard1 } from "react-icons/ci";
-import { LuCar } from "react-icons/lu";
 import { usePathname } from "next/navigation";
 import { checkout } from "@/data/checkout";
 import Image from "next/image";
@@ -14,17 +10,29 @@ function CheckoutNavigation({ children }) {
     <div className="flex flex-col ">
       <div className="flex items-center justify-between py-10">
         {checkout.map((item) => {
-          const isActive = pathname.includes(item.href) && pathname.length > 1;
+          const pathSegments = pathname.split("/");
+          const currentStep =
+            pathSegments[pathSegments.length - 1] || pathSegments[1];
+          const isActive = currentStep === item.href;
+          const activeStep = checkout.find((step) => step.href === currentStep);
+          const activeStepId = activeStep?.id || 1;
+          const isPastStep = item.id < activeStepId;
           return (
             <div key={item.id} className="flex items-center gap-3">
-              <div className="flex items-center justify-center rounded-full bg-white border border-opinion size-[60px]">
-                {/* <Image
+              <div
+                className={`flex items-center justify-center rounded-full  border ${
+                  isActive ? "bg-main" : "bg-white"
+                } ${
+                  isPastStep ? "border-[#00BA88]" : "border-opinion"
+                } size-[60px]`}
+              >
+                <Image
                   alt=""
                   src={item.image}
                   width={35}
                   height={35}
                   className="text-opinion size-[35px] "
-                /> */}
+                />
               </div>
               <div>
                 <p className="text-opinion text-xs">{item.section}</p>
