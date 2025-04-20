@@ -10,6 +10,7 @@ export default function Breadcrumbs() {
   const pathMap = {
     about: "درباره ما",
     call: "تماس با ما",
+    dashboard: "حساب کاربری",
   };
 
   // Function to generate breadcrumb items

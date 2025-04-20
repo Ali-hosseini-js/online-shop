@@ -10,6 +10,7 @@ module.exports = {
       colors: {
         main: "#5E0A8E",
         mainTint: "#945CB4",
+        mainGray: "#F9F9F9",
         footer: "#1F032F",
         border: "#929292",
         card: "#FAFAFA",

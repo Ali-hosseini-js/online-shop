@@ -11,7 +11,6 @@ function NewestCard({ data }) {
   const { href, image, alt, description, price, opinion, point } = data;
 
   const [state, dispatch] = useCart();
-  console.log(state);
 
   const clickHandler = (type) => {
     dispatch({ type, payload: data });

@@ -10,7 +10,6 @@ function OfferCard({ data }) {
     data;
 
   const [state, dispatch] = useCart();
-  console.log(state);
 
   const clickHandler = (type) => {
     dispatch({ type, payload: data });
