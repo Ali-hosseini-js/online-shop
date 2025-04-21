@@ -15,7 +15,14 @@ function Dashboard() {
   const postalCodeRef = useRef(null);
   const { data } = useSession();
 
-  const [form, setForm] = useState({ firstName: "", email: "" });
+  const [form, setForm] = useState({
+    firstName: "",
+    email: "",
+    phone: "",
+    password: "",
+    address: "",
+    postalCode: "",
+  });
 
   if (!data) redirect("/");
 
@@ -44,7 +51,7 @@ function Dashboard() {
   };
 
   return (
-    <div>
+    <div className="w-full">
       <div className="flex flex-col p-8 gap-4">
         <p className="text-xl font-medium">اطلاعات فردی</p>
         <p className="text-[#606060] text-xl font-extralight">
@@ -80,7 +87,8 @@ function Dashboard() {
             <Image alt="" src="/personal/direct.svg" width={24} height={24} />
             <input
               id="lastName"
-              type="text"
+              type="email"
+              pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
               value={form.email}
               onChange={(e) => setForm({ ...form, email: e.target.value })}
               readOnly={input !== "emailRef"}
@@ -100,8 +108,11 @@ function Dashboard() {
             <Image alt="" src="/personal/call.svg" width={24} height={24} />
             <input
               id="lastName"
-              type="text"
-              value="سید علی حسینی"
+              type="tel"
+              placeholder="09XXXXXXXXX"
+              pattern="^09\d{9}$"
+              value={form.phone}
+              onChange={(e) => setForm({ ...form, phone: e.target.value })}
               readOnly={input !== "phoneRef"}
               ref={phoneRef}
               className="bg-inherit outline-none text-[#606060] text-xl w-full"
@@ -120,7 +131,8 @@ function Dashboard() {
             <input
               id="lastName"
               type="password"
-              value="سید علی حسینی"
+              value={form.password}
+              onChange={(e) => setForm({ ...form, password: e.target.value })}
               readOnly={input !== "passwordRef"}
               ref={passwordRef}
               className="bg-inherit outline-none text-[#606060] text-xl w-full"
@@ -139,7 +151,8 @@ function Dashboard() {
             <input
               id="lastName"
               type="text"
-              value="سید علی حسینی"
+              value={form.address}
+              onChange={(e) => setForm({ ...form, address: e.target.value })}
               readOnly={input !== "addressRef"}
               ref={addressRef}
               className="bg-inherit outline-none text-[#606060] text-xl w-full"
@@ -158,7 +171,8 @@ function Dashboard() {
             <input
               id="lastName"
               type="text"
-              value="سید علی حسینی"
+              value={form.postalCode}
+              onChange={(e) => setForm({ ...form, postalCode: e.target.value })}
               readOnly={input !== "postalCodeRef"}
               ref={postalCodeRef}
               className="bg-inherit outline-none text-[#606060] text-xl w-full"
@@ -169,6 +183,7 @@ function Dashboard() {
           </div>
         </div>
       </div>
+      <button className="button m-3">ذخیره اطلاعات</button>
     </div>
   );
 }

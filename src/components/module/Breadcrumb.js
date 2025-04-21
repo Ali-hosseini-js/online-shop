@@ -11,6 +11,12 @@ export default function Breadcrumbs() {
     about: "درباره ما",
     call: "تماس با ما",
     dashboard: "حساب کاربری",
+    payment: "پرداخت و اقساط",
+    orders: "سفارش ها",
+    mylist: "لیست های من",
+    gift: "کارت های هدیه",
+    notification: "پیغام ها",
+    ticket: "تماس با ما",
   };
 
   // Function to generate breadcrumb items
@@ -41,9 +47,7 @@ export default function Breadcrumbs() {
           <li key={crumb.href} className="flex items-center gap-2">
             <span className="text-main">/</span>
             {crumb.isLast ? (
-              <span className="font-extralight text-gray-500">
-                {crumb.label}
-              </span>
+              <span className="font-extralight text-main">{crumb.label}</span>
             ) : (
               <Link href={crumb.href} className="text-gray-500 hover:underline">
                 {crumb.label}

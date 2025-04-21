@@ -18,6 +18,10 @@ const sumProducts = (products) => {
   return { itemsCounter, total, discountCounter };
 };
 
+const shortenText = (text) => {
+  return text.split(" ").slice(0, 3).join(" ");
+};
+
 const productQuantity = (state, id) => {
   const index = state.selectedItems.findIndex((item) => item.id === id);
   if (index === -1) {
@@ -27,4 +31,4 @@ const productQuantity = (state, id) => {
   }
 };
 
-export { sumProducts, productQuantity };
+export { sumProducts, productQuantity, shortenText };
