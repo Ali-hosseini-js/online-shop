@@ -1,4 +1,3 @@
-import { signIn } from "next-auth/react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
@@ -23,15 +22,20 @@ function CheckOtpForm({ mobile, setStep }) {
     event.preventDefault();
 
     setLoading(true);
-    const res = await signIn("credentials", {
-      mobile,
-      otp,
-      redirect: false,
+    const res = await fetch(`http://localhost:3100/auth/confirm`, {
+      method: "POST",
+      credentials: "include",
+      body: JSON.stringify({ mobile, code: otp }),
+      headers: { "Content-Type": "application/json" },
     });
+    const data = await res.json();
+
     setLoading(false);
-    if (res.error) {
-      toast.error(res.error);
+    if (data.error) {
+      toast.error(data.message);
     } else {
+      toast.success(data.message);
+      console.log(data.token);
       router.push("/");
     }
   };

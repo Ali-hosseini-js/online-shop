@@ -3,8 +3,8 @@ import toast from "react-hot-toast";
 import { e2p } from "@/utils/replaceNumber";
 
 function LoginTimer({ mobile }) {
-  const [timer, setTimer] = useState(e2p("3:00"));
-  const [timeLeft, setTimeLeft] = useState(180);
+  const [timer, setTimer] = useState(e2p("2:00"));
+  const [timeLeft, setTimeLeft] = useState(120);
   const [isRunning, setIsRunning] = useState(true);
 
   useEffect(() => {
@@ -28,32 +28,34 @@ function LoginTimer({ mobile }) {
 
   const sendOTP = async (event) => {
     event.preventDefault();
-
-    const res = await fetch("/api/auth/signup", {
+    event.preventDefault();
+    const res = await fetch(`http://localhost:3100/auth/resend`, {
       method: "POST",
       body: JSON.stringify({ mobile }),
       headers: { "Content-Type": "application/json" },
     });
     const data = await res.json();
-    console.log(data.message);
+    console.log(data.code);
 
-    toast.success(data.message);
+    if (data.error) {
+      toast.error(data.message);
+    } else {
+      toast.success(data.code);
+    }
     setIsRunning(true);
-    setTimeLeft(180);
-    setTimer("3:00");
+    setTimeLeft(120);
+    setTimer(e2p("2:00"));
   };
 
   return (
     <div>
-      <p>
-        {isRunning ? (
-          timer
-        ) : (
-          <button onClick={sendOTP} className="text-main underline-offset-8">
-            کد تایید دوباره ارسال گردد؟
-          </button>
-        )}
-      </p>
+      {isRunning ? (
+        timer
+      ) : (
+        <button onClick={sendOTP} className="text-main underline-offset-8">
+          کد تایید دوباره ارسال گردد؟
+        </button>
+      )}
     </div>
   );
 }

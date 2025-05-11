@@ -8,13 +8,12 @@ import { CiLogin } from "react-icons/ci";
 import { CiSearch } from "react-icons/ci";
 import logo from "@/public/logo.svg";
 import List from "@/template/List";
-import { useSession } from "next-auth/react";
 import { useCart } from "src/context/CartContext";
 import { e2p } from "@/utils/replaceNumber";
 function Header() {
-  // const session = await getServerSession(authOptions);
-  const { data: session } = useSession();
   const [state] = useCart();
+
+  const session = false;
   return (
     <>
       <div className="flex justify-between items-center my-7 max-lg:flex-col max-lg:gap-5">

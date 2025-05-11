@@ -8,16 +8,20 @@ function SendOtpForm({ mobile, setMobile, setStep }) {
   const [isChecked, setIsChecked] = useState(false);
   const submitHandler = async (event) => {
     event.preventDefault();
-    const res = await fetch("/api/auth/signup", {
+    const res = await fetch(`http://localhost:3100/auth/sign-up`, {
       method: "POST",
       body: JSON.stringify({ mobile }),
       headers: { "Content-Type": "application/json" },
     });
     const data = await res.json();
-    console.log(data.message);
+    console.log(data.code);
 
-    toast.success(data.message);
-    if (res.status === 200) setStep(2);
+    if (data.error) {
+      toast.error(data.message);
+    } else {
+      toast.success(data.code);
+      setStep(2);
+    }
   };
 
   const handleCheckbox = (e) => {
@@ -54,7 +58,6 @@ function SendOtpForm({ mobile, setMobile, setStep }) {
               onChange={(e) => setMobile(e.target.value)}
               placeholder="09XXXXXXXXX"
               className="p-3 border border-none bg-gray-100 rounded-lg focus:outline-none focus:border-main"
-              pattern="^09\d{9}$"
               required
             />
           </div>

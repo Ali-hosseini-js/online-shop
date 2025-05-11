@@ -1,7 +1,6 @@
 import { vazir } from "@/utils/fonts";
 import "./globals.css";
 import Layout from "@/layout/Layout";
-import NextAuthProvider from "src/provider/NextAuthProvider";
 import CartProvider from "src/context/CartContext";
 
 export const metadata = {
@@ -14,11 +13,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="fa" dir="rtl">
       <body className={vazir.className}>
-        <NextAuthProvider>
-          <CartProvider>
-            <Layout>{children}</Layout>
-          </CartProvider>
-        </NextAuthProvider>
+        <CartProvider>
+          <Layout>{children}</Layout>
+        </CartProvider>
       </body>
     </html>
   );
