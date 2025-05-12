@@ -7,10 +7,18 @@ import LoginTimer from "@/module/LoginTimer";
 import logo from "@/public/logo.svg";
 import OtpInput from "@/module/OtpInput";
 import Loader from "@/module/Loader";
+import { useQuery } from "@tanstack/react-query";
+import { getCachedInventory } from "@/services/CachedApi";
 
 function CheckOtpForm({ mobile, setStep }) {
   const [otp, setOTP] = useState(null);
   const [loading, setLoading] = useState(false);
+
+  const { refetch } = useQuery({
+    queryKey: ["profile"],
+    queryFn: getCachedInventory,
+    staleTime: 3600,
+  });
 
   const router = useRouter();
 
@@ -35,8 +43,8 @@ function CheckOtpForm({ mobile, setStep }) {
       toast.error(data.message);
     } else {
       toast.success(data.message);
-      console.log(data.token);
       router.push("/");
+      refetch();
     }
   };
 

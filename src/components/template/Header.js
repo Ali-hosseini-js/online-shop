@@ -10,10 +10,17 @@ import logo from "@/public/logo.svg";
 import List from "@/template/List";
 import { useCart } from "src/context/CartContext";
 import { e2p } from "@/utils/replaceNumber";
+import { getCachedInventory } from "@/services/CachedApi";
+import { useQuery } from "@tanstack/react-query";
+
 function Header() {
   const [state] = useCart();
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["profile"],
+    queryFn: getCachedInventory,
+    staleTime: 3600,
+  });
 
-  const session = false;
   return (
     <>
       <div className="flex justify-between items-center my-7 max-lg:flex-col max-lg:gap-5">
@@ -32,7 +39,7 @@ function Header() {
           </button>
         </div>
         <div className="flex items-center justify-center gap-3">
-          {session ? (
+          {data?.role !== "" ? (
             <Link href="/dashboard" className="text-main">
               <CgProfile className="w-[30px] h-[30px]" />
             </Link>

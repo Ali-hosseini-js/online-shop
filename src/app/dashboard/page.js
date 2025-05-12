@@ -1,10 +1,18 @@
 "use client";
 
+import { getCachedInventory } from "@/services/CachedApi";
+import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import { redirect } from "next/navigation";
 import { useRef, useState } from "react";
 
 function Dashboard() {
+  const { data } = useQuery({
+    queryKey: ["profile"],
+    queryFn: getCachedInventory,
+    staleTime: 3600,
+  });
+
   const [input, setInput] = useState(null);
   const firstNameRef = useRef(null);
   const emailRef = useRef(null);
@@ -12,7 +20,6 @@ function Dashboard() {
   const passwordRef = useRef(null);
   const addressRef = useRef(null);
   const postalCodeRef = useRef(null);
-  const { data } = useSession();
 
   const [form, setForm] = useState({
     firstName: "",

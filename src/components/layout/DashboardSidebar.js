@@ -2,7 +2,6 @@
 
 import { dashboard } from "@/data/dashboard";
 import Breadcrumbs from "@/module/Breadcrumb";
-import { signOut } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
