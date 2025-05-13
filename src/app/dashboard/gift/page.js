@@ -1,13 +1,10 @@
 "use client";
 
-import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { redirect } from "next/navigation";
 
 function Gift() {
-  const { data } = useSession();
-
-  if (!data) redirect("/");
+  // if (!data) redirect("/");
 
   return (
     <div className="w-full">

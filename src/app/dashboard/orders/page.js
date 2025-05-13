@@ -1,6 +1,5 @@
 "use client";
 
-import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -10,9 +9,7 @@ import { shortenText } from "src/helper/helper";
 function Order() {
   const [state, dispatch] = useCart();
 
-  const { data } = useSession();
-
-  if (!data) redirect("/");
+  // if (!data) redirect("/");
 
   return (
     <div className="w-full">

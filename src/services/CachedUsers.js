@@ -1,6 +1,6 @@
-export async function getCachedInventory() {
+export async function getCachedUsers() {
   try {
-    const res = await fetch("http://localhost:3100/auth/whoami", {
+    const res = await fetch("http://localhost:3100/user", {
       credentials: "include",
     });
     return res.json();

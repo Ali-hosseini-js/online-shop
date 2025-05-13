@@ -1,6 +1,5 @@
 "use client";
 
-import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { redirect } from "next/navigation";
 import { useRef, useState } from "react";
@@ -9,14 +8,13 @@ function Payment() {
   const [input, setInput] = useState(null);
   const firstCreditCardRef = useRef(null);
   const secondCreditCardRef = useRef(null);
-  const { data } = useSession();
 
   const [form, setForm] = useState({
     firstCredit: "",
     secondCredit: "",
   });
 
-  if (!data) redirect("/");
+  // if (!data) redirect("/");
 
   const editHandler = (fieldName) => {
     setInput(fieldName);

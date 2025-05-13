@@ -6,6 +6,7 @@ import { CiShoppingCart } from "react-icons/ci";
 import { CgProfile } from "react-icons/cg";
 import { CiLogin } from "react-icons/ci";
 import { CiSearch } from "react-icons/ci";
+import { RiAdminLine } from "react-icons/ri";
 import logo from "@/public/logo.svg";
 import List from "@/template/List";
 import { useCart } from "src/context/CartContext";
@@ -49,6 +50,12 @@ function Header() {
               <p>ورود / ثبت نام</p>
             </Link>
           )}
+          {data?.role === "admin" ? (
+            <Link href="/admin" className="text-main">
+              <RiAdminLine className="w-[30px] h-[30px]" />
+            </Link>
+          ) : null}
+
           <Link
             href="/checkout"
             className="border-r-[1px] border-gray-500 pr-3"

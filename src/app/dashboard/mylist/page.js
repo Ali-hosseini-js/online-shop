@@ -1,13 +1,10 @@
 "use client";
 
-import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import toast, { Toaster } from "react-hot-toast";
 
 function MyList() {
-  const { data } = useSession();
-
-  if (!data) redirect("/");
+  // if (!data) redirect("/");
 
   return (
     <div className="w-full">

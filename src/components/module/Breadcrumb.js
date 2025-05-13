@@ -17,6 +17,14 @@ export default function Breadcrumbs() {
     gift: "کارت های هدیه",
     notification: "پیغام ها",
     ticket: "تماس با ما",
+    admin: "پنل ادمین",
+    userControl: "مدیریت کاربران",
+    productControl: "مدیریت محصولات",
+    categoryControl: "مدیریت دسته بندی ها",
+    shippingControl: "روش های ارسال",
+    adminTicket: "تیکت های ادمین",
+    orderControl: "مدیریت سفارشات",
+    commentControl: "مدیریت نظرات",
   };
 
   // Function to generate breadcrumb items

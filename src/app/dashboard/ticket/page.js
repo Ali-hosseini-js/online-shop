@@ -1,13 +1,10 @@
 "use client";
 
-import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import toast, { Toaster } from "react-hot-toast";
 
 function Ticket() {
-  const { data } = useSession();
-
-  if (!data) redirect("/");
+  // if (!data) redirect("/");
 
   const submitHandler = (e) => {
     e.preventDefault();

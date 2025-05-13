@@ -46,6 +46,14 @@ textarea {
     @apply bg-main text-white text-[16px] font-semibold flex items-center justify-center py-2 px-4 rounded-md gap-2;
   }
 
+  .editButton {
+    @apply bg-green-500 text-white text-[16px] font-semibold flex items-center justify-center py-2 px-4 rounded-md gap-2;
+  }
+
+  .deleteButton {
+    @apply bg-red-600 text-white text-[16px] font-semibold flex items-center justify-center py-2 px-4 rounded-md gap-2;
+  }
+
   .table-head {
     @apply text-[20px] font-semibold text-right text-main py-[10px] max-md:px-[10px] text-nowrap;
   }
