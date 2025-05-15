@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import UserCard from "./UserCard";
-import { getCachedUsers } from "@/services/CachedUsers";
+import { getCachedUsers } from "@/services/user/CachedUsers";
 import { useQuery } from "@tanstack/react-query";
 
 function ListUser() {

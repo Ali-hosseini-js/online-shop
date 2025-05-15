@@ -1,24 +1,24 @@
-import { DeleteUsers } from "@/services/user/DeleteUser";
-import { EditUsers } from "@/services/user/EditUser";
+import { DeleteProduct } from "@/services/product/DeleteProduct";
+import { EditProduct } from "@/services/product/EditProduct";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
-function UserCard({ firstName, lastName, mobile, role, id }) {
+function ProductCard({ title, price, discount, stock, id }) {
   const queryClient = useQueryClient();
   const [activeIndex, setActiveIndex] = useState(null);
   const [form, setForm] = useState({
-    firstName,
-    lastName,
-    mobile,
-    role,
+    title,
+    price,
+    discount,
+    stock,
   });
 
   const editMutation = useMutation({
-    mutationFn: EditUsers,
+    mutationFn: EditProduct,
     onSuccess: () => {
-      toast.success("اطلاعات کاربر با موفقیت به‌روزرسانی شد");
-      queryClient.invalidateQueries(["users"]);
+      toast.success("محصول با موفقیت بروز رسانی گردید");
+      queryClient.invalidateQueries(["products"]);
       setActiveIndex(null); // Close the edit panel
     },
     onError: (error) => {
@@ -31,14 +31,15 @@ function UserCard({ firstName, lastName, mobile, role, id }) {
   };
 
   const handleSubmit = () => {
+    console.log(id);
     editMutation.mutate({ id, formData: form });
   };
 
   const { mutate: deleteMutation } = useMutation({
-    mutationFn: DeleteUsers,
+    mutationFn: DeleteProduct,
     onSuccess: () => {
-      toast.success("کاربر با موفقیت حذف شد");
-      queryClient.invalidateQueries(["users"]);
+      toast.success("محصول با موفقیت حذف گردید");
+      queryClient.invalidateQueries(["products"]);
     },
     onError: (error) => {
       toast.error(error.message);
@@ -50,84 +51,76 @@ function UserCard({ firstName, lastName, mobile, role, id }) {
       <div className="flex justify-between items-center p-7 bg-mainGray">
         <div className="flex items-center gap-5">
           <p>
-            نام و نام خانوادگی
-            <span className="text-[#606060]">
-              {firstName} {lastName}
-            </span>
+            عنوان <span className="text-[#606060]">{title}</span>
           </p>
           <p>
-            موبایل <span className="text-[#606060]">{mobile}</span>
+            قیمت<span className="text-[#606060]">{price}</span>
           </p>
           <p>
-            نقش کاربر <span className="text-[#606060]">{role}</span>
+            تخفیف<span className="text-[#606060]">{discount}</span>
+          </p>
+          <p>
+            تعداد<span className="text-[#606060]">{stock}</span>
           </p>
         </div>
         <div className="flex gap-5">
           <button onClick={() => clickHandler(id)} className="editButton">
             ویرایش
           </button>
-          <button
-            onClick={() => deleteMutation(id)}
-            disabled={editMutation.isLoading}
-            className="deleteButton"
-          >
+          <button onClick={() => deleteMutation(id)} className="deleteButton">
             حذف
           </button>
         </div>
       </div>
       <div className={`panel ${activeIndex === id ? "block" : "hidden"}`}>
         <label className="flex flex-col gap-3 text-[#606060] text-xl pr-6 p-3">
-          نام
+          عنوان{" "}
           <div className="flex items-center p-6 bg-mainGray rounded-lg w-[390px] h-[72px] gap-3">
             <input
-              id="firstName"
+              id="title"
               type="text"
-              value={form.firstName}
-              onChange={(e) => setForm({ ...form, firstName: e.target.value })}
+              value={form.title}
+              onChange={(e) => setForm({ ...form, title: e.target.value })}
               className="bg-inherit outline-none text-[#606060] text-xl w-full"
             />
           </div>
         </label>
         <label className="flex flex-col gap-3 text-[#606060] text-xl pr-6 p-3">
-          نام خانوادگی
+          قیمت{" "}
           <div className="flex items-center p-6 bg-mainGray rounded-lg w-[390px] h-[72px] gap-3">
             <input
-              id="lastName"
-              type="text"
-              value={form.lastName}
-              onChange={(e) => setForm({ ...form, lastName: e.target.value })}
+              id="content"
+              type="number"
+              value={form.price}
+              onChange={(e) => setForm({ ...form, price: e.target.value })}
               className="bg-inherit outline-none text-[#606060] text-xl w-full"
             />
           </div>
         </label>
 
         <label className="flex flex-col gap-3 text-[#606060] text-xl pr-6 p-3">
-          شماره همراه
+          تخفیف{" "}
           <div className="flex items-center p-6 bg-mainGray rounded-lg w-[390px] h-[72px] gap-3">
             <input
-              id="phoneNumber"
-              type="tel"
-              value={form.mobile}
-              onChange={(e) => setForm({ ...form, mobile: e.target.value })}
+              id="url"
+              type="number"
+              value={form.discount}
+              onChange={(e) => setForm({ ...form, discount: e.target.value })}
               className="bg-inherit outline-none text-[#606060] text-xl w-full"
             />
           </div>
         </label>
 
         <label className="flex flex-col gap-3 text-[#606060] text-xl pr-6 p-3">
-          سطح دسترسی
+          تعداد{" "}
           <div className="flex items-center p-6 bg-mainGray rounded-lg w-[390px] h-[72px] gap-3">
-            <select
-              name="role"
-              id="roles"
-              value={form.role}
-              onChange={(e) => setForm({ ...form, role: e.target.value })}
+            <input
+              id="url"
+              type="number"
+              value={form.stock}
+              onChange={(e) => setForm({ ...form, stock: e.target.value })}
               className="bg-inherit outline-none text-[#606060] text-xl w-full"
-            >
-              <option value="admin">Admin</option>
-              <option value="user">User</option>
-              <option value="copyRighter">CopyRighter</option>
-            </select>
+            />
           </div>
         </label>
         <button onClick={handleSubmit} className="button">
@@ -138,4 +131,4 @@ function UserCard({ firstName, lastName, mobile, role, id }) {
   );
 }
 
-export default UserCard;
+export default ProductCard;

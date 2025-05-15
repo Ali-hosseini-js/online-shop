@@ -38,7 +38,9 @@ function AdminDashboardLayout({ children }) {
                   width={24}
                   height={24}
                 />
-                <p className="text-xl font-medium">{item.section}</p>
+                <p className="text-xl font-medium text-nowrap">
+                  {item.section}
+                </p>
               </Link>
             );
           })}

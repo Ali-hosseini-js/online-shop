@@ -1,6 +1,6 @@
 "use client";
 
-import { getCachedUsers } from "@/services/CachedUsers";
+import { getCachedUsers } from "@/services/user/CachedUsers";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import { useState } from "react";

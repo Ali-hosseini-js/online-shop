@@ -1,7 +1,5 @@
 import ListUser from "@/module/admin/ListUser";
 import UserForm from "@/module/admin/UserForm";
-import Image from "next/image";
-import Link from "next/link";
 import { Toaster } from "react-hot-toast";
 
 function UserControl() {
