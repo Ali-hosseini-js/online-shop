@@ -1,4 +1,4 @@
-export async function EditProduct(id, formData) {
+export async function EditProduct({ id, formData }) {
   try {
     const res = await fetch(`http://localhost:3100/product/${id}`, {
       method: "PATCH",

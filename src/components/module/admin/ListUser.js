@@ -1,15 +1,10 @@
 "use client";
 
-import Image from "next/image";
-import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
 import UserCard from "./UserCard";
 import { getCachedUsers } from "@/services/user/CachedUsers";
 import { useQuery } from "@tanstack/react-query";
 
 function ListUser() {
-  const [id, setId] = useState(null);
-  const [user, setUser] = useState([]);
   const { data, isLoading, error } = useQuery({
     queryKey: ["users"],
     queryFn: getCachedUsers,

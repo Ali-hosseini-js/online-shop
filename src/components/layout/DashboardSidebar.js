@@ -8,7 +8,6 @@ import { usePathname } from "next/navigation";
 
 function DashboardLayout({ children }) {
   const pathname = usePathname();
-
   return (
     <div>
       <Breadcrumbs />
@@ -16,9 +15,7 @@ function DashboardLayout({ children }) {
         <div className="w-[320px] h-[780px] bg-mainGray pr-4">
           <div className="flex items-center p-5 mt-5 gap-3">
             <Image alt="" src="/personal/user.svg" width={40} height={40} />
-            <p className="text-xl font-medium text-opinion">
-              نام و نام خانوادگی
-            </p>
+            <p className="text-xl font-medium text-opinion"></p>
           </div>
           {dashboard.map((item) => {
             const pathSegments = pathname.split("/");

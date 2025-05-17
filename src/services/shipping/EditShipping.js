@@ -1,6 +1,8 @@
-export async function EditUsers({ id, formData }) {
+export async function EditShipping({ id, formData }) {
   try {
-    const res = await fetch(`http://localhost:3100/user/${id}`, {
+    console.log(id);
+    console.log(formData);
+    const res = await fetch(`http://localhost:3100/shipping/${id}`, {
       method: "PATCH",
       credentials: "include",
       headers: { "Content-Type": "application/json" },

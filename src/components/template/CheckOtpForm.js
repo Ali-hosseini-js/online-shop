@@ -7,18 +7,12 @@ import LoginTimer from "@/module/LoginTimer";
 import logo from "@/public/logo.svg";
 import OtpInput from "@/module/OtpInput";
 import Loader from "@/module/Loader";
-import { useQuery } from "@tanstack/react-query";
-import { getCachedInventory } from "@/services/CachedApi";
+import { useQueryClient } from "@tanstack/react-query";
 
 function CheckOtpForm({ mobile, setStep }) {
   const [otp, setOTP] = useState(null);
   const [loading, setLoading] = useState(false);
-
-  const { refetch } = useQuery({
-    queryKey: ["profile"],
-    queryFn: getCachedInventory,
-    staleTime: 3600,
-  });
+  const queryClient = useQueryClient();
 
   const router = useRouter();
 
@@ -44,7 +38,10 @@ function CheckOtpForm({ mobile, setStep }) {
     } else {
       toast.success(data.message);
       router.push("/");
-      refetch();
+      // refetch();
+      // UserRefetch();
+      await queryClient.invalidateQueries({ queryKey: ["profile"] });
+      await queryClient.invalidateQueries({ queryKey: ["userPanel"] });
     }
   };
 

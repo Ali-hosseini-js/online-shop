@@ -21,7 +21,7 @@ export const adminDashboard = [
     id: 4,
     href: "/admin/shippingControl",
     image: "/admin/shippingControl.svg",
-    section: "روش های پرداخت",
+    section: "روش های ارسال",
   },
   {
     id: 5,

@@ -25,6 +25,8 @@ export default function Breadcrumbs() {
     adminTicket: "تیکت های ادمین",
     orderControl: "مدیریت سفارشات",
     commentControl: "مدیریت نظرات",
+    address: "آدرس",
+    security: "امنیت",
   };
 
   // Function to generate breadcrumb items
