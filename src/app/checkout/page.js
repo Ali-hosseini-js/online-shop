@@ -27,7 +27,7 @@ function Checkout() {
     <div className="flex justify-between items-start py-[10px] min-h-[1000px]">
       <div className="">
         {state.selectedItems.map((p) => (
-          <BasketCard key={p.id} data={p} clickHandler={clickHandler} />
+          <BasketCard key={p._id} data={p} clickHandler={clickHandler} />
         ))}
       </div>
       <BasketSidebar state={state} clickHandler={navHandler} />

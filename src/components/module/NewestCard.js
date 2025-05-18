@@ -8,7 +8,7 @@ import toast from "react-hot-toast";
 import { useCart } from "src/context/CartContext";
 
 function NewestCard({ data }) {
-  const { href, image, alt, description, price, opinion, point } = data;
+  const { _id, images, thumbnail, title, price } = data;
 
   const [state, dispatch] = useCart();
 
@@ -23,25 +23,25 @@ function NewestCard({ data }) {
         <CiHeart />
       </div>
       <Link
-        href={href}
+        href={_id}
         className="flex flex-col gap-4 justify-center items-center w-full"
       >
         <Image
           className="w-full h-[130px]"
-          alt={alt}
-          src={image}
+          alt={thumbnail}
+          src={`http://localhost:3100/files/main/${images?.[0]}`}
           width={400}
           height={400}
         />
         <p className="text-[12px] w-full  max-h-[20px] text-center font-medium  whitespace-nowrap overflow-hidden text-ellipsis">
-          {description}
+          {title}
         </p>
       </Link>
       <div className="flex flex-col items-end w-full mt-5 gap-5">
         <div>
           <p className="flex text-point text-[12px] font-600 gap-1">
-            <span className="text-opinion">({e2p(opinion)}نظر)</span>
-            {e2p(point)}
+            <span className="text-opinion">({e2p(56)}نظر)</span>
+            {e2p(3.4)}
             <Image alt="point" src={medal} width={12} height={12} />
           </p>
         </div>

@@ -2,7 +2,7 @@
 
 import { getCategories } from "@/services/category/AllCategoryApi";
 import { getProducts } from "@/services/product/AllProduct";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -20,11 +20,7 @@ function ProductFrom() {
   });
   const [files, setFiles] = useState();
 
-  const { refetch } = useQuery({
-    queryKey: ["products"],
-    queryFn: getProducts,
-    staleTime: 3600,
-  });
+  const queryClient = useQueryClient();
 
   const { data, isLoading, error } = useQuery({
     queryKey: ["categories"],
@@ -55,19 +51,19 @@ function ProductFrom() {
       });
 
       const uploadData = await uploadResponse.json();
-      console.log(uploadData);
 
-      setForm((prevForm) => ({
-        ...prevForm,
-        images: [...prevForm.images, ...uploadData.fileNames],
-      }));
-      console.log(form);
+      const uploadedFiles = Array.isArray(uploadData.fileNames)
+        ? uploadData.fileNames
+        : [uploadData.fileNames];
 
       const productResponse = await fetch("http://localhost:3100/product", {
         method: "POST",
         credentials: "include",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({
+          ...form,
+          images: [...form.images, ...uploadedFiles], // Now always array
+        }),
       });
 
       const productData = await productResponse.json();
@@ -75,9 +71,18 @@ function ProductFrom() {
       if (productData.error) {
         toast.error(productData.message);
       } else {
-        toast.success(productData.message);
-        setForm({ title: "", content: "", url: "", image: [] });
-        refetch();
+        toast.success("محصول با موفقیت ساخته شد");
+        setForm({
+          title: "",
+          content: "",
+          thumbnail: "",
+          price: 0,
+          discount: 0,
+          category: "",
+          images: [],
+          url: "",
+        });
+        await queryClient.invalidateQueries({ queryKey: ["products"] });
       }
     } catch (error) {
       toast.error(error.message || "خطا در ثبت دسته‌بندی");
@@ -94,6 +99,7 @@ function ProductFrom() {
             <input
               id="title"
               type="text"
+              value={form.title}
               onChange={(e) => setForm({ ...form, title: e.target.value })}
               className="bg-inherit outline-none text-[#606060] text-xl w-full"
             />
@@ -106,6 +112,7 @@ function ProductFrom() {
             <input
               id="content"
               type="text"
+              value={form.content}
               onChange={(e) => setForm({ ...form, content: e.target.value })}
               className="bg-inherit outline-none text-[#606060] text-xl w-full"
             />
@@ -119,6 +126,7 @@ function ProductFrom() {
             <input
               id="thumbnail"
               type="text"
+              value={form.thumbnail}
               onChange={(e) => setForm({ ...form, thumbnail: e.target.value })}
               className="bg-inherit outline-none text-[#606060] text-xl w-full"
             />
@@ -133,6 +141,7 @@ function ProductFrom() {
               required
               id="price"
               type="number"
+              value={form.price}
               onChange={(e) => setForm({ ...form, price: e.target.value })}
               className="bg-inherit outline-none text-[#606060] text-xl w-full"
             />
@@ -143,9 +152,9 @@ function ProductFrom() {
           <div className="flex items-center p-6 bg-mainGray rounded-lg w-[390px] h-[72px] gap-3">
             <Image alt="" src="/personal/key.svg" width={24} height={24} />
             <input
-              required
               id="discount"
               type="number"
+              value={form.discount}
               onChange={(e) => setForm({ ...form, discount: e.target.value })}
               className="bg-inherit outline-none text-[#606060] text-xl w-full"
             />
@@ -156,16 +165,16 @@ function ProductFrom() {
           <div className="flex items-center p-6 bg-mainGray rounded-lg w-[390px] h-[72px] gap-3">
             <Image alt="" src="/personal/key.svg" width={24} height={24} />
             <input
-              required
               id="url"
               type="text"
+              value={form.url}
               onChange={(e) => setForm({ ...form, url: e.target.value })}
               className="bg-inherit outline-none text-[#606060] text-xl w-full"
             />
           </div>
         </label>
         <label className="flex flex-col gap-3 text-[#606060] text-xl pr-6 p-3">
-          تخفیف{" "}
+          تصویر
           <div className="flex items-center p-6 bg-mainGray rounded-lg w-[390px] h-[72px] gap-3">
             <Image alt="" src="/personal/key.svg" width={24} height={24} />
             <input

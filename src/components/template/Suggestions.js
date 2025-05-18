@@ -8,8 +8,16 @@ import { suggestions } from "@/data/suggestion";
 import Link from "next/link";
 import { IoIosArrowBack } from "react-icons/io";
 import NewestCard from "@/module/NewestCard";
+import { useQuery } from "@tanstack/react-query";
+import { NewProducts } from "@/services/NewProduct";
 
 function Suggestions() {
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["noDiscount"],
+    queryFn: NewProducts,
+    staleTime: 3600,
+  });
+
   return (
     <div className="flex flex-col gap-8">
       <div className="flex justify-between items-center gap-5 px-5 max-md:flex-col">
@@ -41,8 +49,8 @@ function Suggestions() {
             1280: { slidesPerView: 5, spaceBetween: 10 },
           }}
         >
-          {suggestions.map((suggestion) => (
-            <SwiperSlide key={suggestion.id}>
+          {data?.products.map((suggestion) => (
+            <SwiperSlide key={suggestion._id}>
               <NewestCard data={suggestion} />
             </SwiperSlide>
           ))}

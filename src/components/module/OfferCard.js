@@ -6,8 +6,7 @@ import { useCart } from "src/context/CartContext";
 import toast from "react-hot-toast";
 
 function OfferCard({ data }) {
-  const { href, image, alt, description, price, discountPrice, discount } =
-    data;
+  const { _id, images, thumbnail, content, title, price, discount } = data;
 
   const [state, dispatch] = useCart();
 
@@ -15,6 +14,8 @@ function OfferCard({ data }) {
     dispatch({ type, payload: data });
     toast.success("محصول به سبد خرید اضافه گردید");
   };
+
+  const DiscountPrice = price - (price * discount) / 100;
 
   return (
     <div className="flex flex-col gap-4 justify-center items-center h-[330px] w-[220px] rounded-lg p-4 bg-white">
@@ -24,18 +25,18 @@ function OfferCard({ data }) {
         </p>
       </div>
       <Link
-        href={href}
+        href={_id}
         className="flex flex-col gap-4 justify-center items-center w-full"
       >
         <Image
           className="w-full h-[130px]"
-          alt={alt}
-          src={image}
+          alt={thumbnail}
+          src={`http://localhost:3100/files/main/${images[0]}`}
           width={400}
           height={400}
         />
         <p className="text-[12px] w-full max-h-[20px] text-center font-medium  whitespace-nowrap overflow-hidden text-ellipsis">
-          {description}
+          {title}
         </p>
       </Link>
 
@@ -51,7 +52,7 @@ function OfferCard({ data }) {
             <TbShoppingBagCheck />
           </button>
           <p className="bg-main text-white text-[16px] font-semibold  rounded-lg  px-2 py-1 w-fit">
-            {sp(discountPrice)} <span className="text-[12px]">تومان</span>
+            {sp(DiscountPrice)} <span className="text-[12px]">تومان</span>
           </p>
         </div>
       </div>

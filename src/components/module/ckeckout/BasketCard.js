@@ -4,18 +4,22 @@ import BasketCartFeature from "../‌BasketCartFeature";
 import { sp } from "@/utils/replaceNumber";
 
 function BascketCard({ data, clickHandler }) {
-  const { image, description, quantity, price, discountPrice } = data;
+  const { _id, images, thumbnail, content, title, price, discount, quantity } =
+    data;
+
+  const discountPrice = price - (price * discount) / 100;
+
   return (
     <div className="flex items-center justify-start border-2 border-dashed border-[#e2e2e2] rounded-[20px] p-5 mb-5 w-[800px]">
       <Image
-        alt={image}
-        src={image}
+        alt={thumbnail}
+        src={`http://localhost:3100/files/main/${images[0]}`}
         width={210}
         height={225}
         className="w-[210px] h-[130px]"
       />
       <div className="flex flex-col gap-5 w-full">
-        <p className="text-[23px]">{description}</p>
+        <p className="text-[23px]">{title}</p>
         <BasketCartFeature />
         <div className="flex items-center justify-between w-full">
           {price !== discountPrice ? (

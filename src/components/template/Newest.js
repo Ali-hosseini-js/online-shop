@@ -8,8 +8,16 @@ import { newProduct } from "@/data/new";
 import Link from "next/link";
 import { IoIosArrowBack } from "react-icons/io";
 import NewestCard from "@/module/NewestCard";
+import { NewProducts } from "@/services/NewProduct";
+import { useQuery } from "@tanstack/react-query";
 
 function Newest() {
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["noDiscount"],
+    queryFn: NewProducts,
+    staleTime: 3600,
+  });
+
   return (
     <div className="flex flex-col gap-8">
       <div className="flex justify-between items-center gap-5 px-5 max-md:flex-col">
@@ -41,8 +49,8 @@ function Newest() {
             1280: { slidesPerView: 5, spaceBetween: 10 },
           }}
         >
-          {newProduct.map((product) => (
-            <SwiperSlide key={product.id}>
+          {data?.products.map((product) => (
+            <SwiperSlide key={product._id}>
               <NewestCard data={product} />
             </SwiperSlide>
           ))}

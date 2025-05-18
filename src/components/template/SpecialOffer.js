@@ -4,13 +4,20 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, A11y } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
-import { offer } from "@/data/offer";
 import OfferCard from "@/module/OfferCard";
 import Link from "next/link";
 import { IoIosArrowBack } from "react-icons/io";
 import CountdownTimer from "@/module/Timer";
+import { useQuery } from "@tanstack/react-query";
+import { DiscountProducts } from "@/services/SpecialProducts";
 
 function SpecialOffer() {
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["discount"],
+    queryFn: DiscountProducts,
+    staleTime: 3600,
+  });
+
   return (
     <div className="bg-main p-5 rounded-lg">
       <Swiper
@@ -48,8 +55,8 @@ function SpecialOffer() {
             </div>
           </div>
         </SwiperSlide>
-        {offer.map((offer) => (
-          <SwiperSlide key={offer.id}>
+        {data?.products.map((offer) => (
+          <SwiperSlide key={offer._id}>
             <OfferCard data={offer} />
           </SwiperSlide>
         ))}

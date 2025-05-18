@@ -1,7 +1,7 @@
 "use client";
 
 import { getCategories } from "@/services/category/AllCategoryApi";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -14,36 +14,38 @@ function CategoryForm() {
     image: "",
   });
   const [file, setFile] = useState(null);
+  const queryClient = useQueryClient();
 
-  const { refetch } = useQuery({
-    queryKey: ["categories"],
-    queryFn: getCategories,
-    staleTime: 3600,
-  });
-
-  const submitHandler = async (e) => {
+  const uploadFile = async (e) => {
     e.preventDefault();
-
     if (!file) {
       toast.error("لطفا یک تصویر انتخاب کنید");
       return;
     }
 
+    const formData = new FormData();
+    formData.append("file", file);
+    const uploadResponse = await fetch("http://localhost:3100/upload-file", {
+      method: "POST",
+      credentials: "include",
+      body: formData,
+    });
+
+    const uploadData = await uploadResponse.json();
+    console.log("upload:", uploadData);
+    if (uploadData.error) {
+      toast.error("فایل صحیح را بارگذاری کنید");
+    } else {
+      toast.success("تصویر با موفقیت بارگذاری گردید");
+    }
+
+    setForm({ ...form, image: uploadData.fileName });
+  };
+
+  const submitHandler = async (e) => {
+    e.preventDefault();
+
     try {
-      const formData = new FormData();
-      formData.append("file", file);
-      const uploadResponse = await fetch("http://localhost:3100/upload-file", {
-        method: "POST",
-        credentials: "include",
-        body: formData,
-      });
-
-      const uploadData = await uploadResponse.json();
-      console.log(uploadData);
-
-      setForm({ ...form, image: uploadData.fileName });
-      console.log(form);
-
       const categoryResponse = await fetch(
         "http://localhost:3100/product-category",
         {
@@ -61,7 +63,7 @@ function CategoryForm() {
       } else {
         toast.success(categoryData.message);
         setForm({ title: "", content: "", url: "", image: "" });
-        refetch();
+        await queryClient.invalidateQueries({ queryKey: ["categories"] });
       }
     } catch (error) {
       toast.error(error.message || "خطا در ثبت دسته‌بندی");
@@ -122,6 +124,9 @@ function CategoryForm() {
               className="bg-inherit outline-none text-[#606060] text-xl w-full"
             />
           </div>
+          <button type="button" className="button" onClick={uploadFile}>
+            ارسال
+          </button>
         </label>
       </div>
 
