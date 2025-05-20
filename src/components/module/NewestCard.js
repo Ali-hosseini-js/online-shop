@@ -5,17 +5,32 @@ import medal from "@/public/medal-star.svg";
 import { CiHeart } from "react-icons/ci";
 import { TbShoppingBagCheck } from "react-icons/tb";
 import toast from "react-hot-toast";
-import { useCart } from "src/context/CartContext";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { QueryKeys } from "@/utils/QueryKey";
 
 function NewestCard({ data }) {
   const { _id, images, thumbnail, title, price } = data;
 
-  const [state, dispatch] = useCart();
+  const queryClient = useQueryClient();
 
-  const clickHandler = (type) => {
-    dispatch({ type, payload: data });
-    toast.success("محصول به سبد خرید اضافه گردید");
-  };
+  const { mutate: addToCart } = useMutation({
+    mutationFn: (productId) =>
+      fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/cart`, {
+        method: "POST",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ product: productId }),
+      }).then((res) => res.json()),
+    onSuccess: (data) => {
+      if (data.cart._id) {
+        queryClient.refetchQueries([QueryKeys.USERCART]);
+      }
+      toast.success("محصول به سبد خرید اضافه گردید");
+    },
+    onError: () => {
+      toast.error("خطا در اضافه کردن محصول به سبد خرید");
+    },
+  });
 
   return (
     <div className="flex flex-col gap-4 justify-center items-center h-[330px] w-[240px] rounded-lg p-4 bg-card">
@@ -47,7 +62,7 @@ function NewestCard({ data }) {
         </div>
         <div className="flex justify-between w-full">
           <button
-            onClick={() => clickHandler("ADD_ITEM")}
+            onClick={() => addToCart(_id)}
             className="flex items-center justify-center bg-main text-white border-none text-3xl h-8 w-8 p-1 rounded-lg cursor-pointer"
           >
             <TbShoppingBagCheck />

@@ -1,6 +1,9 @@
 "use client";
 
 import BasketSidebar from "@/module/ckeckout/BasketSidebar";
+import { UserCart } from "@/services/cart/UserCart";
+import { QueryKeys } from "@/utils/QueryKey";
+import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useCart } from "src/context/CartContext";
@@ -9,16 +12,21 @@ function Payment() {
   const [state, dispatch] = useCart();
   const router = useRouter();
 
+  const { data, isLoading, error } = useQuery({
+    queryKey: [QueryKeys.USERCART],
+    queryFn: UserCart,
+  });
+
   const navHandler = (type, payload) => {
     router.push("/checkout/send");
-    dispatch({ type, payload });
+    // dispatch({ type, payload });
   };
 
   return (
     <div className="flex justify-between items-start py-[10px] min-h-[1000px]">
       <div className="flex flex-col border-2 border-dashed border-[#e2e2e2] rounded-[20px] p-5 mb-5 w-[800px] gap-2">
         <p className="text-xl pb-4">شیوه پرداخت</p>
-        <div class="flex flex-col gap-3">
+        <div className="flex flex-col gap-3">
           <div className="flex relative gap-2 items-center">
             <input type="radio" name="payment" />
             <div className="bg-main size-10 flex items-center justify-center rounded-lg">
@@ -55,7 +63,14 @@ function Payment() {
           </div>
         </div>
       </div>
-      <BasketSidebar state={state} clickHandler={navHandler} location={true} />
+      <BasketSidebar
+        total={data.prices.totalWithoutDiscount}
+        totalDiscount={data.prices.totalWithDiscount}
+        totalQuantity={data.totalQuantity}
+        location={true}
+        clickHandler={navHandler}
+        cargo={state.shipping}
+      />
     </div>
   );
 }

@@ -2,12 +2,15 @@
 
 import { getCachedInventory } from "@/services/CachedApi";
 import { UserPanel } from "@/services/UserPanel";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
 import { redirect } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { useCart } from "src/context/CartContext";
 
 function Dashboard() {
+  const [state] = useCart();
+
   const { data } = useQuery({
     queryKey: ["profile"],
     queryFn: getCachedInventory,
@@ -15,20 +18,17 @@ function Dashboard() {
   });
   console.log("dashboard:", data);
   if (!data) redirect("/");
-  const id = data.id;
 
   const { data: userData } = useQuery({
-    queryKey: ["userPanel", id],
-    queryFn: () => UserPanel(id), // Non-null assertion if `enabled` ensures `data` exists
+    queryKey: ["userPanel"],
+    queryFn: () => UserPanel(state.id),
     staleTime: 3600,
   });
-
-  console.log("user:", userData);
 
   const [pass, setPass] = useState({
     oldPassword: 0,
     newPassword: 0,
-    id: id,
+    id: state.id,
   });
 
   const [input, setInput] = useState(null);

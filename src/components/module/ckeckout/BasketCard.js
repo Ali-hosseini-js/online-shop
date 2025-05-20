@@ -2,12 +2,29 @@ import Image from "next/image";
 import { MdDeleteOutline } from "react-icons/md";
 import BasketCartFeature from "../‌BasketCartFeature";
 import { sp } from "@/utils/replaceNumber";
+import { useQueryClient } from "@tanstack/react-query";
+import { QueryKeys } from "@/utils/QueryKey";
 
-function BascketCard({ data, clickHandler }) {
-  const { _id, images, thumbnail, content, title, price, discount, quantity } =
-    data;
+function BascketCard({ data, clickHandler, quantity, id, cartId }) {
+  const { title, thumbnail, price, discount, images } = data;
+  const queryClient = useQueryClient();
 
   const discountPrice = price - (price * discount) / 100;
+
+  const deleteHandler = async () => {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/cart/remove-from-cart/${cartId}`,
+      {
+        method: "DELETE",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ cartItem: id }),
+      }
+    );
+    const data = await res.json();
+    queryClient.invalidateQueries([QueryKeys.USERCART]);
+    console.log("delete", data);
+  };
 
   return (
     <div className="flex items-center justify-start border-2 border-dashed border-[#e2e2e2] rounded-[20px] p-5 mb-5 w-[800px]">
@@ -37,7 +54,7 @@ function BascketCard({ data, clickHandler }) {
           <div className="flex items-center">
             {quantity === 1 && (
               <button
-                onClick={() => clickHandler("REMOVE_ITEM", data)}
+                onClick={deleteHandler}
                 className="flex items-center justify-center bg-main text-white border-none text-3xl h-8 w-8 p-1 rounded-lg cursor-pointer"
               >
                 <MdDeleteOutline />

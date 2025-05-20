@@ -78,6 +78,10 @@ const reducer = (state, action) => {
         total: 0,
         ckeckout: true,
       };
+    case "SET_ID":
+      return { ...state, id: action.payload };
+    case "SET_SHIPPING":
+      return { ...state, shipping: action.payload };
 
     default:
       throw new Error("Invalid Action");

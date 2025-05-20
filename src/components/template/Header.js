@@ -12,20 +12,26 @@ import List from "@/template/List";
 import { useCart } from "src/context/CartContext";
 import { e2p } from "@/utils/replaceNumber";
 import { getCachedInventory } from "@/services/CachedApi";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { UserPanel } from "@/services/UserPanel";
+import { useEffect } from "react";
 
 function Header() {
-  const [state] = useCart();
+  const [state, dispatch] = useCart();
+
   const { data, isLoading, error } = useQuery({
     queryKey: ["profile"],
     queryFn: getCachedInventory,
     staleTime: 3600,
   });
 
-  console.log(data);
-
   let id = data?.id;
+
+  useEffect(() => {
+    if (data?.id) {
+      dispatch({ type: "SET_ID", payload: data.id });
+    }
+  }, [data]);
 
   const { data: userData } = useQuery({
     queryKey: ["userPanel", id], // Note the id in queryKey

@@ -2,18 +2,33 @@ import Image from "next/image";
 import Link from "next/link";
 import { e2p, sp } from "@/utils/replaceNumber";
 import { TbShoppingBagCheck } from "react-icons/tb";
-import { useCart } from "src/context/CartContext";
 import toast from "react-hot-toast";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { QueryKeys } from "@/utils/QueryKey";
 
 function OfferCard({ data }) {
   const { _id, images, thumbnail, content, title, price, discount } = data;
 
-  const [state, dispatch] = useCart();
+  const queryClient = useQueryClient();
 
-  const clickHandler = (type) => {
-    dispatch({ type, payload: data });
-    toast.success("محصول به سبد خرید اضافه گردید");
-  };
+  const { mutate: addToCart } = useMutation({
+    mutationFn: (productId) =>
+      fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/cart`, {
+        method: "POST",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ product: productId }),
+      }).then((res) => res.json()),
+    onSuccess: (data) => {
+      if (data.cart._id) {
+        queryClient.refetchQueries([QueryKeys.USERCART]);
+      }
+      toast.success("محصول به سبد خرید اضافه گردید");
+    },
+    onError: () => {
+      toast.error("خطا در اضافه کردن محصول به سبد خرید");
+    },
+  });
 
   const DiscountPrice = price - (price * discount) / 100;
 
@@ -46,7 +61,7 @@ function OfferCard({ data }) {
         </p>
         <div className="flex justify-between w-full">
           <button
-            onClick={() => clickHandler("ADD_ITEM")}
+            onClick={() => addToCart(_id)}
             className="flex items-center justify-center bg-main text-white border-none text-3xl h-8 w-8 p-1 rounded-lg cursor-pointer"
           >
             <TbShoppingBagCheck />
