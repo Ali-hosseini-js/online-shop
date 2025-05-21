@@ -26,6 +26,34 @@ function BascketCard({ data, clickHandler, quantity, id, cartId }) {
     console.log("delete", data);
   };
 
+  const incrementHandler = async (id) => {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/cart/increment/${id}`,
+      {
+        method: "POST",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+    const data = await res.json();
+    queryClient.invalidateQueries([QueryKeys.USERCART]);
+    console.log(data);
+  };
+
+  const decrementHandler = async (id) => {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/cart/decrement/${id}`,
+      {
+        method: "POST",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+    const data = await res.json();
+    queryClient.invalidateQueries([QueryKeys.USERCART]);
+    console.log(data);
+  };
+
   return (
     <div className="flex items-center justify-start border-2 border-dashed border-[#e2e2e2] rounded-[20px] p-5 mb-5 w-[800px]">
       <Image
@@ -62,7 +90,7 @@ function BascketCard({ data, clickHandler, quantity, id, cartId }) {
             )}
             {quantity > 1 && (
               <button
-                onClick={() => clickHandler("DECREASE", data)}
+                onClick={() => decrementHandler(id)}
                 className="flex items-center justify-center bg-main text-white border-none text-3xl h-8 w-8 p-1 rounded-lg cursor-pointer"
               >
                 -
@@ -70,7 +98,7 @@ function BascketCard({ data, clickHandler, quantity, id, cartId }) {
             )}
             <span className="w-5 text-center my-1">{quantity}</span>
             <button
-              onClick={() => clickHandler("INCREASE", data)}
+              onClick={() => incrementHandler(id)}
               className="flex items-center justify-center bg-main text-white border-none text-3xl h-8 w-8 p-1 rounded-lg cursor-pointer"
             >
               +
