@@ -9,11 +9,12 @@ function BlogCard({ title, image, href }) {
       className="w-[290px]  border border-gray-500 rounded-lg my-5"
     >
       <Image
+        className="rounded-t-lg w-full h-auto"
         alt={title}
         src={image}
-        width={300}
+        width={290}
         height={170}
-        className="rounded-t-lg w-[290px] h-[170px]"
+        priority
       />
       <p className="text-[16px] font-normal flex items-center justify-center p-3 h-[100px]">
         {title}

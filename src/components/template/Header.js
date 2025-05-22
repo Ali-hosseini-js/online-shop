@@ -11,35 +11,28 @@ import logo from "@/public/logo.svg";
 import List from "@/template/List";
 import { useCart } from "src/context/CartContext";
 import { e2p } from "@/utils/replaceNumber";
-import { getCachedInventory } from "@/services/CachedApi";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { UserPanel } from "@/services/UserPanel";
+import { getRole } from "@/services/CachedApi";
+import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
+import { QueryKeys } from "@/utils/QueryKey";
 
 function Header() {
   const [state, dispatch] = useCart();
 
-  const { data, isLoading, error } = useQuery({
-    queryKey: ["profile"],
-    queryFn: getCachedInventory,
+  const { data } = useQuery({
+    queryKey: [QueryKeys.ROLE],
+    queryFn: getRole,
     staleTime: 3600,
   });
-
-  let id = data?.id;
 
   useEffect(() => {
-    if (data?.id) {
-      dispatch({ type: "SET_ID", payload: data.id });
-    }
+    dispatch({
+      type: "SET_ROLE",
+      payload: data?.role,
+    });
   }, [data]);
 
-  const { data: userData } = useQuery({
-    queryKey: ["userPanel", id], // Note the id in queryKey
-    queryFn: () => UserPanel(id),
-    staleTime: 3600,
-  });
-
-  console.log("userHeader:", userData);
+  console.log("role", state.role);
 
   return (
     <>
@@ -59,7 +52,7 @@ function Header() {
           </button>
         </div>
         <div className="flex items-center justify-center gap-3">
-          {data?.role === "user" || data?.role === "admin" ? (
+          {state.role === "user" || data?.role === "admin" ? (
             <Link href="/dashboard" className="text-main">
               <CgProfile className="w-[30px] h-[30px]" />
             </Link>
@@ -69,7 +62,7 @@ function Header() {
               <p>ورود / ثبت نام</p>
             </Link>
           )}
-          {data?.role === "admin" ? (
+          {state.role === "admin" ? (
             <Link href="/admin" className="text-main">
               <RiAdminLine className="w-[30px] h-[30px]" />
             </Link>

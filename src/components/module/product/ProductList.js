@@ -3,10 +3,11 @@
 import { useQuery } from "@tanstack/react-query";
 import { getProducts } from "@/services/product/AllProduct";
 import ProductCard from "./ProductCard";
+import { QueryKeys } from "@/utils/QueryKey";
 
 function ProductList() {
   const { data, isLoading, error } = useQuery({
-    queryKey: ["products"],
+    queryKey: [QueryKeys.ADMIN_PRODUCT],
     queryFn: getProducts,
     staleTime: 3600,
   });

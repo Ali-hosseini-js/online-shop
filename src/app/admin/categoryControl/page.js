@@ -1,9 +1,23 @@
+"use client";
+
 import CategoryForm from "@/module/categoryAdmin/CategoryForm";
 import CategoryList from "@/module/categoryAdmin/CategoryList";
 import { Toaster } from "react-hot-toast";
+import { getRole } from "@/services/CachedApi";
+import { QueryKeys } from "@/utils/QueryKey";
+import { useQuery } from "@tanstack/react-query";
+import { redirect } from "next/navigation";
 
 function CategoryControl() {
-  // if (!data) redirect("/");
+  const { data } = useQuery({
+    queryKey: [QueryKeys.ROLE],
+    queryFn: getRole,
+    staleTime: 3600,
+  });
+
+  if (!data || data.role !== "admin") {
+    redirect("/");
+  }
 
   return (
     <div className="w-full">

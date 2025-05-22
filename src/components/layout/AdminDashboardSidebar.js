@@ -5,9 +5,11 @@ import Breadcrumbs from "@/module/Breadcrumb";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useCart } from "src/context/CartContext";
 
 function AdminDashboardLayout({ children }) {
   const pathname = usePathname();
+  const [state, dispatch] = useCart();
 
   return (
     <div>
@@ -17,7 +19,7 @@ function AdminDashboardLayout({ children }) {
           <div className="flex items-center p-5 mt-5 gap-3">
             <Image alt="" src="/personal/user.svg" width={40} height={40} />
             <p className="text-xl font-medium text-opinion">
-              نام و نام خانوادگی
+              {state.profile?.firstName} {state.profile?.lastName}
             </p>
           </div>
           {adminDashboard.map((item) => {

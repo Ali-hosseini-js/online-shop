@@ -1,10 +1,19 @@
 "use client";
 
 import Image from "next/image";
+import { getRole } from "@/services/CachedApi";
+import { QueryKeys } from "@/utils/QueryKey";
+import { useQuery } from "@tanstack/react-query";
 import { redirect } from "next/navigation";
 
 function Gift() {
-  // if (!data) redirect("/");
+  const { data } = useQuery({
+    queryKey: [QueryKeys.ROLE],
+    queryFn: getRole,
+    staleTime: 3600,
+  });
+
+  if (!data) redirect("/");
 
   return (
     <div className="w-full">

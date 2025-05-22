@@ -4,16 +4,16 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, A11y } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
-import { newProduct } from "@/data/new";
 import Link from "next/link";
 import { IoIosArrowBack } from "react-icons/io";
 import NewestCard from "@/module/NewestCard";
 import { NewProducts } from "@/services/NewProduct";
 import { useQuery } from "@tanstack/react-query";
+import { QueryKeys } from "@/utils/QueryKey";
 
 function Newest() {
   const { data, isLoading, error } = useQuery({
-    queryKey: ["noDiscount"],
+    queryKey: [QueryKeys.PRODUCT_NODISCOUNT],
     queryFn: NewProducts,
     staleTime: 3600,
   });

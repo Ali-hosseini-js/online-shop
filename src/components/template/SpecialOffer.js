@@ -10,10 +10,11 @@ import { IoIosArrowBack } from "react-icons/io";
 import CountdownTimer from "@/module/Timer";
 import { useQuery } from "@tanstack/react-query";
 import { DiscountProducts } from "@/services/SpecialProducts";
+import { QueryKeys } from "@/utils/QueryKey";
 
 function SpecialOffer() {
   const { data, isLoading, error } = useQuery({
-    queryKey: ["discount"],
+    queryKey: [QueryKeys.PRODUCT_DISCOUNT],
     queryFn: DiscountProducts,
     staleTime: 3600,
   });

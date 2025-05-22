@@ -1,7 +1,7 @@
 "use client";
 
 import { getCategories } from "@/services/category/AllCategoryApi";
-import { getProducts } from "@/services/product/AllProduct";
+import { QueryKeys } from "@/utils/QueryKey";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
 import { useState } from "react";
@@ -23,7 +23,7 @@ function ProductFrom() {
   const queryClient = useQueryClient();
 
   const { data, isLoading, error } = useQuery({
-    queryKey: ["categories"],
+    queryKey: [QueryKeys.ADMIN_CATEGORY],
     queryFn: getCategories,
     onError: (error) => {
       toast.error(error.message);
@@ -82,7 +82,9 @@ function ProductFrom() {
           images: [],
           url: "",
         });
-        await queryClient.invalidateQueries({ queryKey: ["products"] });
+        await queryClient.invalidateQueries({
+          queryKey: [QueryKeys.ADMIN_PRODUCT],
+        });
       }
     } catch (error) {
       toast.error(error.message || "خطا در ثبت دسته‌بندی");

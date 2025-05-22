@@ -1,6 +1,6 @@
-export async function UserPanel(id) {
+export async function getProfile() {
   try {
-    const res = await fetch(`http://localhost:3100/panel/user/${id}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/panel/user`, {
       credentials: "include",
     });
     return res.json();

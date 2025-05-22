@@ -1,6 +1,7 @@
 "use client";
 
 import { getCachedUsers } from "@/services/user/CachedUsers";
+import { QueryKeys } from "@/utils/QueryKey";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import { useState } from "react";
@@ -15,7 +16,7 @@ function UserForm() {
     role: "user",
   });
   const { refetch } = useQuery({
-    queryKey: ["users"],
+    queryKey: [QueryKeys.ADMIN_USER],
     queryFn: getCachedUsers,
     staleTime: 3600,
   });

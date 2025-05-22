@@ -2,6 +2,9 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { getRole } from "@/services/CachedApi";
+import { QueryKeys } from "@/utils/QueryKey";
+import { useQuery } from "@tanstack/react-query";
 import { redirect } from "next/navigation";
 import { useCart } from "src/context/CartContext";
 import { shortenText } from "src/helper/helper";
@@ -9,7 +12,13 @@ import { shortenText } from "src/helper/helper";
 function Order() {
   const [state, dispatch] = useCart();
 
-  // if (!data) redirect("/");
+  const { data } = useQuery({
+    queryKey: [QueryKeys.ROLE],
+    queryFn: getRole,
+    staleTime: 3600,
+  });
+
+  if (!data) redirect("/");
 
   return (
     <div className="w-full">

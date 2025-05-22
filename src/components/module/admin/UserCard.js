@@ -1,5 +1,6 @@
 import { DeleteUsers } from "@/services/user/DeleteUser";
 import { EditUsers } from "@/services/user/EditUser";
+import { QueryKeys } from "@/utils/QueryKey";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -18,7 +19,7 @@ function UserCard({ firstName, lastName, mobile, role, id }) {
     mutationFn: EditUsers,
     onSuccess: () => {
       toast.success("اطلاعات کاربر با موفقیت به‌روزرسانی شد");
-      queryClient.invalidateQueries(["users"]);
+      queryClient.invalidateQueries([QueryKeys.ADMIN_USER]);
       setActiveIndex(null); // Close the edit panel
     },
     onError: (error) => {
@@ -38,7 +39,7 @@ function UserCard({ firstName, lastName, mobile, role, id }) {
     mutationFn: DeleteUsers,
     onSuccess: () => {
       toast.success("کاربر با موفقیت حذف شد");
-      queryClient.invalidateQueries(["users"]);
+      queryClient.invalidateQueries([QueryKeys.ADMIN_USER]);
     },
     onError: (error) => {
       toast.error(error.message);
@@ -80,7 +81,6 @@ function UserCard({ firstName, lastName, mobile, role, id }) {
           نام
           <div className="flex items-center p-6 bg-mainGray rounded-lg w-[390px] h-[72px] gap-3">
             <input
-              id="firstName"
               type="text"
               value={form.firstName}
               onChange={(e) => setForm({ ...form, firstName: e.target.value })}
@@ -92,7 +92,6 @@ function UserCard({ firstName, lastName, mobile, role, id }) {
           نام خانوادگی
           <div className="flex items-center p-6 bg-mainGray rounded-lg w-[390px] h-[72px] gap-3">
             <input
-              id="lastName"
               type="text"
               value={form.lastName}
               onChange={(e) => setForm({ ...form, lastName: e.target.value })}
@@ -105,7 +104,6 @@ function UserCard({ firstName, lastName, mobile, role, id }) {
           شماره همراه
           <div className="flex items-center p-6 bg-mainGray rounded-lg w-[390px] h-[72px] gap-3">
             <input
-              id="phoneNumber"
               type="tel"
               value={form.mobile}
               onChange={(e) => setForm({ ...form, mobile: e.target.value })}

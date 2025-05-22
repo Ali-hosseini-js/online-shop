@@ -1,6 +1,7 @@
 "use client";
 
 import BasketSidebar from "@/module/ckeckout/BasketSidebar";
+import Loader from "@/module/Loader";
 import { UserCart } from "@/services/cart/UserCart";
 import { QueryKeys } from "@/utils/QueryKey";
 import { useQuery } from "@tanstack/react-query";
@@ -30,7 +31,13 @@ function Payment() {
           <div className="flex relative gap-2 items-center">
             <input type="radio" name="payment" />
             <div className="bg-main size-10 flex items-center justify-center rounded-lg">
-              <Image alt="" src="/payment/pay-1-1.svg" width={24} height={24} />
+              <Image
+                className="w-6 h-6"
+                alt=""
+                src="/payment/pay-1-1.svg"
+                width={24}
+                height={24}
+              />
             </div>
             <div>
               <p>پرداخت آنلاین</p>
@@ -42,7 +49,13 @@ function Payment() {
           <div className="flex gap-2 items-center">
             <input type="radio" name="payment" />
             <div className="bg-main size-10 flex items-center justify-center rounded-lg">
-              <Image alt="" src="/payment/pay-2-2.svg" width={24} height={24} />
+              <Image
+                className="w-6 h-6"
+                alt=""
+                src="/payment/pay-2-2.svg"
+                width={24}
+                height={24}
+              />
             </div>
             <div>
               <p>پرداخت اقساطی اسنپ پی</p>
@@ -52,7 +65,13 @@ function Payment() {
           <div className="flex gap-2 items-center">
             <input type="radio" name="payment" />
             <div className="bg-main size-10 flex items-center justify-center rounded-lg">
-              <Image alt="" src="/payment/pay-3-3.svg" width={24} height={24} />
+              <Image
+                className="w-6 h-6"
+                alt=""
+                src="/payment/pay-3-3.svg"
+                width={24}
+                height={24}
+              />
             </div>
             <div>
               <p>پرداخت در محل</p>
@@ -63,14 +82,20 @@ function Payment() {
           </div>
         </div>
       </div>
-      <BasketSidebar
-        total={data.prices.totalWithoutDiscount}
-        totalDiscount={data.prices.totalWithDiscount}
-        totalQuantity={data.totalQuantity}
-        location={true}
-        clickHandler={navHandler}
-        cargo={state.shipping}
-      />
+      {isLoading ? (
+        <div className="flex items-center justify-center w-[400px]">
+          <Loader />
+        </div>
+      ) : (
+        <BasketSidebar
+          total={data.prices.totalWithoutDiscount}
+          totalDiscount={data.prices.totalWithDiscount}
+          totalQuantity={data.totalQuantity}
+          location={true}
+          clickHandler={navHandler}
+          cargo={state.shipping}
+        />
+      )}
     </div>
   );
 }

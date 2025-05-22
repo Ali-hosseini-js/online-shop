@@ -1,6 +1,7 @@
 "use client";
 
 import { getAddress } from "@/services/address/AllAddress";
+import { QueryKeys } from "@/utils/QueryKey";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import { useState } from "react";
@@ -11,7 +12,7 @@ function AddressForm() {
     content: "",
   });
   const { refetch } = useQuery({
-    queryKey: ["address"],
+    queryKey: [QueryKeys.ADMIN_ADDRESS],
     queryFn: getAddress,
     staleTime: 3600,
   });

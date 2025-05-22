@@ -1,56 +1,63 @@
 "use client";
 
-import { getCachedInventory } from "@/services/CachedApi";
-import { UserPanel } from "@/services/UserPanel";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { getRole } from "@/services/CachedApi";
+import { getProfile } from "@/services/Profile";
+import { QueryKeys } from "@/utils/QueryKey";
+import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import { redirect } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { useCart } from "src/context/CartContext";
 
 function Dashboard() {
-  const [state] = useCart();
-
-  const { data } = useQuery({
-    queryKey: ["profile"],
-    queryFn: getCachedInventory,
-    staleTime: 3600,
-  });
-  console.log("dashboard:", data);
-  if (!data) redirect("/");
-
-  const { data: userData } = useQuery({
-    queryKey: ["userPanel"],
-    queryFn: () => UserPanel(state.id),
-    staleTime: 3600,
-  });
-
+  const [state, dispatch] = useCart();
   const [pass, setPass] = useState({
     oldPassword: 0,
     newPassword: 0,
     id: state.id,
   });
-
-  const [input, setInput] = useState(null);
-  const firstNameRef = useRef(null);
-  const lastNameRef = useRef(null);
-  const mobileRef = useRef(null);
-
   const [form, setForm] = useState({
     firstName: "",
     lastName: "",
     mobile: "",
   });
+  const [input, setInput] = useState(null);
+  const firstNameRef = useRef(null);
+  const lastNameRef = useRef(null);
+  const mobileRef = useRef(null);
+
+  const { data } = useQuery({
+    queryKey: [QueryKeys.ROLE],
+    queryFn: getRole,
+    staleTime: 3600,
+  });
+
+  if (!data) redirect("/");
+
+  const { data: profileData } = useQuery({
+    queryKey: [QueryKeys.PROFILE],
+    queryFn: getProfile,
+    staleTime: 3600,
+  });
 
   useEffect(() => {
-    if (userData) {
+    dispatch({
+      type: "SET_PROFILE",
+      payload: {
+        firstName: profileData?.firstName,
+        lastName: profileData?.lastName,
+        mobile: profileData?.mobile,
+      },
+    });
+
+    if (profileData) {
       setForm({
-        firstName: userData.firstName,
-        lastName: userData.lastName,
-        mobile: userData.mobile,
+        firstName: profileData.firstName || "",
+        lastName: profileData.lastName || "",
+        mobile: profileData.mobile || "",
       });
     }
-  }, [userData]);
+  }, [profileData, dispatch]);
 
   const editHandler = (fieldName) => {
     setInput(fieldName);

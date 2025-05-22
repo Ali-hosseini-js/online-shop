@@ -8,6 +8,7 @@ import logo from "@/public/logo.svg";
 import OtpInput from "@/module/OtpInput";
 import Loader from "@/module/Loader";
 import { useQueryClient } from "@tanstack/react-query";
+import { QueryKeys } from "@/utils/QueryKey";
 
 function CheckOtpForm({ mobile, setStep }) {
   const [otp, setOTP] = useState(null);
@@ -24,12 +25,15 @@ function CheckOtpForm({ mobile, setStep }) {
     event.preventDefault();
 
     setLoading(true);
-    const res = await fetch(`http://localhost:3100/auth/confirm`, {
-      method: "POST",
-      credentials: "include",
-      body: JSON.stringify({ mobile, code: otp }),
-      headers: { "Content-Type": "application/json" },
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/auth/confirm`,
+      {
+        method: "POST",
+        credentials: "include",
+        body: JSON.stringify({ mobile, code: otp }),
+        headers: { "Content-Type": "application/json" },
+      }
+    );
     const data = await res.json();
 
     setLoading(false);
@@ -38,10 +42,7 @@ function CheckOtpForm({ mobile, setStep }) {
     } else {
       toast.success(data.message);
       router.push("/");
-      // refetch();
-      // UserRefetch();
-      await queryClient.invalidateQueries({ queryKey: ["profile"] });
-      await queryClient.invalidateQueries({ queryKey: ["userPanel"] });
+      await queryClient.invalidateQueries({ queryKey: [QueryKeys.ROLE] });
     }
   };
 

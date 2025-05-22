@@ -1,11 +1,21 @@
+"use client";
+
 import AddressForm from "@/module/address/AddressForm";
 import AddressList from "@/module/address/AddressList";
-import ShippingForm from "@/module/shipping/ShippingForm";
-import ShippingList from "@/module/shipping/ShippingList";
+import { getRole } from "@/services/CachedApi";
+import { QueryKeys } from "@/utils/QueryKey";
+import { useQuery } from "@tanstack/react-query";
+import { redirect } from "next/navigation";
 import { Toaster } from "react-hot-toast";
 
 function Address() {
-  // if (!data) redirect("/");
+  const { data } = useQuery({
+    queryKey: [QueryKeys.ROLE],
+    queryFn: getRole,
+    staleTime: 3600,
+  });
+
+  if (!data) redirect("/");
 
   return (
     <div className="w-full">

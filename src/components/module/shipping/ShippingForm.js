@@ -1,6 +1,7 @@
 "use client";
 
 import { getShipping } from "@/services/shipping/AllShipping";
+import { QueryKeys } from "@/utils/QueryKey";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import { useState } from "react";
@@ -13,7 +14,7 @@ function ShippingForm() {
     freeShippingThreshold: 0,
   });
   const { refetch } = useQuery({
-    queryKey: ["shippings"],
+    queryKey: [QueryKeys.ADMIN_SHIPPING],
     queryFn: getShipping,
     staleTime: 3600,
   });

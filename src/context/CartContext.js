@@ -1,88 +1,28 @@
 "use client";
 
-import { sumProducts } from "src/helper/helper";
 import { createContext, useReducer, useContext } from "react";
 
 const initialState = {
-  selectedItems: [],
-  itemsCounter: 0,
-  discountCounter: 0,
-  total: 0,
-  cargo: "49000",
-  checkout: false,
+  id: "",
+  shipping: 0,
+  role: "",
+  profile: {
+    firstName: "",
+    lastName: "",
+    mobile: "",
+  },
 };
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case "ADD_ITEM":
-      if (!state.selectedItems.find((item) => item.id === action.payload.id)) {
-        const newItems = [
-          ...state.selectedItems,
-          { ...action.payload, quantity: 1 },
-        ];
-        return {
-          ...state,
-          selectedItems: newItems,
-          checkout: false,
-          ...sumProducts(newItems),
-        };
-      }
-      return state;
-
-    case "REMOVE_ITEM":
-      const newSelectedItems = state.selectedItems.filter(
-        (item) => item.id !== action.payload.id
-      );
-      return {
-        ...state,
-        selectedItems: newSelectedItems,
-        ...sumProducts(newSelectedItems),
-      };
-
-    case "INCREASE":
-      const increaseIndex = state.selectedItems.findIndex(
-        (item) => item.id === action.payload.id
-      );
-      const increasedItems = [...state.selectedItems];
-      increasedItems[increaseIndex] = {
-        ...increasedItems[increaseIndex],
-        quantity: increasedItems[increaseIndex].quantity + 1,
-      };
-      return {
-        ...state,
-        selectedItems: increasedItems,
-        ...sumProducts(increasedItems),
-      };
-
-    case "DECREASE":
-      const decreaseIndex = state.selectedItems.findIndex(
-        (item) => item.id === action.payload.id
-      );
-      const decreasedItems = [...state.selectedItems];
-      decreasedItems[decreaseIndex] = {
-        ...decreasedItems[decreaseIndex],
-        quantity: decreasedItems[decreaseIndex].quantity - 1,
-      };
-      return {
-        ...state,
-        selectedItems: decreasedItems,
-        ...sumProducts(decreasedItems),
-      };
-
-    case "CHECKOUT":
-      return {
-        selectedItems: [],
-        itemsCounter: 0,
-        discountCounter: 0,
-        cargo: "49000",
-        total: 0,
-        ckeckout: true,
-      };
     case "SET_ID":
       return { ...state, id: action.payload };
     case "SET_SHIPPING":
       return { ...state, shipping: action.payload };
-
+    case "SET_ROLE":
+      return { ...state, role: action.payload };
+    case "SET_PROFILE":
+      return { ...state, profile: action.payload };
     default:
       throw new Error("Invalid Action");
   }

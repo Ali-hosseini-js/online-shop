@@ -25,18 +25,26 @@ function Footer() {
           </p>
           <div className="flex gap-2">
             <Image
+              className="w-12 h-12"
               alt="telegram"
               src="/social/social-telegram.svg"
               width={48}
               height={48}
             />
             <Image
+              className="w-12 h-12"
               alt="instagram"
               src="/social/social-insta.svg"
               width={48}
               height={48}
             />
-            <Image alt="x" src="/social/social-x.svg" width={48} height={48} />
+            <Image
+              className="w-12 h-12"
+              alt="x"
+              src="/social/social-x.svg"
+              width={48}
+              height={48}
+            />
           </div>
         </div>
       </div>
@@ -94,9 +102,27 @@ function Footer() {
             </p>
           </div>
           <div className="flex justify-between items-center">
-            <Image alt="" src="/enamad1.jpg" width={77} height={90} />
-            <Image alt="" src="/enamad2.jpg" width={77} height={90} />
-            <Image alt="" src="/enamad3.jpg" width={77} height={90} />
+            <Image
+              className="w-[77px] h-[90px]"
+              alt=""
+              src="/enamad1.jpg"
+              width={77}
+              height={90}
+            />
+            <Image
+              className="w-[77px] h-[90px]"
+              alt=""
+              src="/enamad2.jpg"
+              width={77}
+              height={90}
+            />
+            <Image
+              className="w-[77px] h-[90px]"
+              alt=""
+              src="/enamad3.jpg"
+              width={77}
+              height={90}
+            />
           </div>
         </div>
       </div>

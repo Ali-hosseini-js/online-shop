@@ -20,9 +20,12 @@ export async function DeleteCategories(id) {
   //   credentials: "include",
   // });
 
-  const res = await fetch(`http://localhost:3100/product-category/${id}`, {
-    method: "DELETE",
-    credentials: "include",
-  });
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/product-category/${id}`,
+    {
+      method: "DELETE",
+      credentials: "include",
+    }
+  );
   return res.json();
 }

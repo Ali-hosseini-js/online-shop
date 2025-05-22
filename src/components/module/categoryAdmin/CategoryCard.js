@@ -1,5 +1,6 @@
 import { DeleteCategories } from "@/services/category/DeleteCategories";
 import { EditCategories } from "@/services/category/EditCategory";
+import { QueryKeys } from "@/utils/QueryKey";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -18,7 +19,7 @@ function CategoryCard({ title, content, image, url, id }) {
     mutationFn: EditCategories,
     onSuccess: () => {
       toast.success("اطلاعات دسته بندی با موفقیت به‌روزرسانی شد");
-      queryClient.invalidateQueries(["categories"]);
+      queryClient.invalidateQueries([QueryKeys.ADMIN_CATEGORY]);
       setActiveIndex(null); // Close the edit panel
     },
     onError: (error) => {
@@ -38,7 +39,7 @@ function CategoryCard({ title, content, image, url, id }) {
     mutationFn: DeleteCategories,
     onSuccess: () => {
       toast.success("دسته بندی با موفقیت حذف شد");
-      queryClient.invalidateQueries(["categories"]);
+      queryClient.invalidateQueries([QueryKeys.ADMIN_CATEGORY]);
     },
     onError: (error) => {
       toast.error(error.message);

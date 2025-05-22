@@ -2,11 +2,12 @@
 
 import UserCard from "./UserCard";
 import { getCachedUsers } from "@/services/user/CachedUsers";
+import { QueryKeys } from "@/utils/QueryKey";
 import { useQuery } from "@tanstack/react-query";
 
 function ListUser() {
   const { data, isLoading, error } = useQuery({
-    queryKey: ["users"],
+    queryKey: [QueryKeys.ADMIN_USER],
     queryFn: getCachedUsers,
     staleTime: 3600,
   });

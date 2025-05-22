@@ -1,5 +1,6 @@
 import { DeleteAddress } from "@/services/address/DeleteAddress";
 import { EditAddress } from "@/services/address/EditAddress";
+import { QueryKeys } from "@/utils/QueryKey";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -15,7 +16,7 @@ function AddressCard({ content, id }) {
     mutationFn: EditAddress,
     onSuccess: () => {
       toast.success("آدرس با موفقیت به‌روزرسانی شد");
-      queryClient.invalidateQueries(["users"]);
+      queryClient.invalidateQueries([QueryKeys.ADMIN_ADDRESS]);
       setActiveIndex(null); // Close the edit panel
     },
     onError: (error) => {
@@ -35,7 +36,7 @@ function AddressCard({ content, id }) {
     mutationFn: DeleteAddress,
     onSuccess: () => {
       toast.success("آدرس با موفقیت حذف شد");
-      queryClient.invalidateQueries(["users"]);
+      queryClient.invalidateQueries([QueryKeys.ADMIN_ADDRESS]);
     },
     onError: (error) => {
       toast.error(error.message);

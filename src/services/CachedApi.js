@@ -1,6 +1,6 @@
-export async function getCachedInventory() {
+export async function getRole() {
   try {
-    const res = await fetch("http://localhost:3100/auth/whoami", {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/auth/whoami`, {
       credentials: "include",
     });
     return res.json();

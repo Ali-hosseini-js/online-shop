@@ -1,5 +1,6 @@
 import { DeleteProduct } from "@/services/product/DeleteProduct";
 import { EditProduct } from "@/services/product/EditProduct";
+import { QueryKeys } from "@/utils/QueryKey";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -18,7 +19,7 @@ function ProductCard({ title, price, discount, stock, id }) {
     mutationFn: EditProduct,
     onSuccess: () => {
       toast.success("محصول با موفقیت بروز رسانی گردید");
-      queryClient.invalidateQueries(["products"]);
+      queryClient.invalidateQueries([QueryKeys.ADMIN_PRODUCT]);
       setActiveIndex(null); // Close the edit panel
     },
     onError: (error) => {
@@ -39,7 +40,7 @@ function ProductCard({ title, price, discount, stock, id }) {
     mutationFn: DeleteProduct,
     onSuccess: () => {
       toast.success("محصول با موفقیت حذف گردید");
-      queryClient.invalidateQueries(["products"]);
+      queryClient.invalidateQueries([QueryKeys.ADMIN_PRODUCT]);
     },
     onError: (error) => {
       toast.error(error.message);

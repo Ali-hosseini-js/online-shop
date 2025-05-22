@@ -3,10 +3,11 @@
 import { useQuery } from "@tanstack/react-query";
 import { getCategories } from "@/services/category/AllCategoryApi";
 import CategoryCard from "./CategoryCard";
+import { QueryKeys } from "@/utils/QueryKey";
 
 function CategoryList() {
   const { data, isLoading, error } = useQuery({
-    queryKey: ["categories"],
+    queryKey: [QueryKeys.ADMIN_CATEGORY],
     queryFn: getCategories,
     staleTime: 3600,
   });

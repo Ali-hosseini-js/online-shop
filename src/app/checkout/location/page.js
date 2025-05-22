@@ -1,6 +1,7 @@
 "use client";
 
 import BasketSidebar from "@/module/ckeckout/BasketSidebar";
+import Loader from "@/module/Loader";
 import { UserCart } from "@/services/cart/UserCart";
 import { QueryKeys } from "@/utils/QueryKey";
 import { useQuery } from "@tanstack/react-query";
@@ -89,15 +90,20 @@ function Location() {
           ))}
         </div>
       </div>
-
-      <BasketSidebar
-        total={data.prices.totalWithoutDiscount}
-        totalDiscount={data.prices.totalWithDiscount}
-        totalQuantity={data.totalQuantity}
-        location={true}
-        clickHandler={navHandler}
-        cargo={selectedShipping}
-      />
+      {isLoading ? (
+        <div className="flex items-center justify-center w-[400px]">
+          <Loader />
+        </div>
+      ) : (
+        <BasketSidebar
+          total={data.prices.totalWithoutDiscount}
+          totalDiscount={data.prices.totalWithDiscount}
+          totalQuantity={data.totalQuantity}
+          location={true}
+          clickHandler={navHandler}
+          cargo={selectedShipping}
+        />
+      )}
     </div>
   );
 }

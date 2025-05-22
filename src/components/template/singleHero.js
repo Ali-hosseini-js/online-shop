@@ -6,6 +6,7 @@ function SingleHero() {
   return (
     <Link href="/smart-watch">
       <Image
+        className="w-[1240px] h-[420px]"
         alt="ساعت هوشمند"
         src="smartWatchHero.svg"
         width={1240}

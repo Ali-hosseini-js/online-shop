@@ -57,7 +57,13 @@ function NewestCard({ data }) {
           <p className="flex text-point text-[12px] font-600 gap-1">
             <span className="text-opinion">({e2p(56)}نظر)</span>
             {e2p(3.4)}
-            <Image alt="point" src={medal} width={12} height={12} />
+            <Image
+              className="w-3 h-3"
+              alt="point"
+              src={medal}
+              width={12}
+              height={12}
+            />
           </p>
         </div>
         <div className="flex justify-between w-full">

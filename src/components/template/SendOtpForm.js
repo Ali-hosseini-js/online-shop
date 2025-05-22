@@ -8,11 +8,14 @@ function SendOtpForm({ mobile, setMobile, setStep }) {
   const [isChecked, setIsChecked] = useState(false);
   const submitHandler = async (event) => {
     event.preventDefault();
-    const res = await fetch(`http://localhost:3100/auth/sign-up`, {
-      method: "POST",
-      body: JSON.stringify({ mobile }),
-      headers: { "Content-Type": "application/json" },
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/auth/sign-up`,
+      {
+        method: "POST",
+        body: JSON.stringify({ mobile }),
+        headers: { "Content-Type": "application/json" },
+      }
+    );
     const data = await res.json();
     console.log(data.code);
 

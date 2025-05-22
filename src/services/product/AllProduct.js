@@ -1,6 +1,6 @@
 export async function getProducts() {
   try {
-    const res = await fetch("http://localhost:3100/product", {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/product`, {
       credentials: "include",
     });
     return res.json();

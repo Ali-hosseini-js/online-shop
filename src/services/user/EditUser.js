@@ -1,6 +1,6 @@
 export async function EditUsers({ id, formData }) {
   try {
-    const res = await fetch(`http://localhost:3100/user/${id}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/user/${id}`, {
       method: "PATCH",
       credentials: "include",
       headers: { "Content-Type": "application/json" },

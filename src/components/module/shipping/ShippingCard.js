@@ -1,7 +1,6 @@
 import { DeleteShipping } from "@/services/shipping/DeleteShipping";
 import { EditShipping } from "@/services/shipping/EditShipping";
-import { DeleteUsers } from "@/services/user/DeleteUser";
-import { EditUsers } from "@/services/user/EditUser";
+import { QueryKeys } from "@/utils/QueryKey";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -19,7 +18,7 @@ function ShippingCard({ title, price, freeShippingThreshold, id }) {
     mutationFn: EditShipping,
     onSuccess: () => {
       toast.success("شیوه ارسال با موفقیت به‌روزرسانی شد");
-      queryClient.invalidateQueries(["shippings"]);
+      queryClient.invalidateQueries([QueryKeys.ADMIN_SHIPPING]);
       setActiveIndex(null); // Close the edit panel
     },
     onError: (error) => {
@@ -39,7 +38,7 @@ function ShippingCard({ title, price, freeShippingThreshold, id }) {
     mutationFn: DeleteShipping,
     onSuccess: () => {
       toast.success("شیوه ارسال با موفقیت حذف شد");
-      queryClient.invalidateQueries(["shippings"]);
+      queryClient.invalidateQueries([QueryKeys.ADMIN_SHIPPING]);
     },
     onError: (error) => {
       toast.error(error.message);

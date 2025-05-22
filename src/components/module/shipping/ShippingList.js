@@ -3,10 +3,11 @@
 import { getShipping } from "@/services/shipping/AllShipping";
 import { useQuery } from "@tanstack/react-query";
 import ShippingCard from "./ShippingCard";
+import { QueryKeys } from "@/utils/QueryKey";
 
 function ShippingList() {
   const { data, isLoading, error } = useQuery({
-    queryKey: ["shippings"],
+    queryKey: [QueryKeys.ADMIN_SHIPPING],
     queryFn: getShipping,
     staleTime: 3600,
   });

@@ -1,7 +1,7 @@
 "use client";
 
-import { getCategories } from "@/services/category/AllCategoryApi";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { QueryKeys } from "@/utils/QueryKey";
+import { useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -63,7 +63,9 @@ function CategoryForm() {
       } else {
         toast.success(categoryData.message);
         setForm({ title: "", content: "", url: "", image: "" });
-        await queryClient.invalidateQueries({ queryKey: ["categories"] });
+        await queryClient.invalidateQueries({
+          queryKey: [QueryKeys.ADMIN_CATEGORY],
+        });
       }
     } catch (error) {
       toast.error(error.message || "خطا در ثبت دسته‌بندی");
@@ -123,10 +125,11 @@ function CategoryForm() {
               onChange={(e) => setFile(e.target.files[0])}
               className="bg-inherit outline-none text-[#606060] text-xl w-full"
             />
+
+            <button type="button" className="button" onClick={uploadFile}>
+              ارسال
+            </button>
           </div>
-          <button type="button" className="button" onClick={uploadFile}>
-            ارسال
-          </button>
         </label>
       </div>
 
