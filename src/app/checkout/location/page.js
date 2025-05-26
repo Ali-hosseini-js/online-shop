@@ -63,12 +63,18 @@ function Location() {
       <div className="flex flex-col gap-10">
         <div className="flex flex-col border-2 border-dashed border-[#e2e2e2] rounded-[20px] p-5 mb-5 w-[800px] gap-2">
           <p className="text-xl pb-4">انتخاب آدرس</p>
-          {address?.addresses.map((address) => (
-            <div key={address._id} className="flex gap-2 items-center">
-              <input type="radio" name="loaction" />
-              <p>{address.content}</p>
-            </div>
-          ))}
+          {address?.addresses?.length > 0 ? (
+            address?.addresses.map((address) => (
+              <div key={address._id} className="flex gap-2 items-center">
+                <input type="radio" name="loaction" />
+                <p>{address.content}</p>
+              </div>
+            ))
+          ) : (
+            <p className="w-full items-center justify-center text-xl text-center">
+              آدرسی وجود ندارد
+            </p>
+          )}
           <Link className="button" href="/dashboard/address">
             ثبت آدرس جدید
           </Link>

@@ -1,7 +1,7 @@
 export async function getAddress() {
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/panel/address`,
+      `${process.env.NEXT_PUBLIC_BASE_URL}/panel/address/byUser`,
       {
         credentials: "include",
       }

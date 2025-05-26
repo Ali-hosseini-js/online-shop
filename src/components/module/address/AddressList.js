@@ -7,16 +7,22 @@ import { QueryKeys } from "@/utils/QueryKey";
 
 function AddressList() {
   const { data, isLoading, error } = useQuery({
-    queryKey: [QueryKeys.ADMIN_ADDRESS],
+    queryKey: [QueryKeys.User_ADDRESS],
     queryFn: getAddress,
     staleTime: 3600,
   });
 
   return (
     <div className="flex flex-col gap-5">
-      {data?.addresses.map((user) => (
-        <AddressCard key={user._id} content={user.content} id={user._id} />
-      ))}
+      {data?.addresses?.length > 0 ? (
+        data?.addresses.map((user) => (
+          <AddressCard key={user._id} content={user.content} id={user._id} />
+        ))
+      ) : (
+        <p className="w-full items-center justify-center text-2xl text-center">
+          آدرسی وجود ندارد
+        </p>
+      )}
     </div>
   );
 }

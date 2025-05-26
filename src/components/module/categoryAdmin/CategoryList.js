@@ -12,8 +12,6 @@ function CategoryList() {
     staleTime: 3600,
   });
 
-  console.log(data);
-
   return (
     <div className="flex flex-col gap-5">
       {data?.productCategories.map((category) => (

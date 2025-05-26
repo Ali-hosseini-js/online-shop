@@ -11,6 +11,22 @@ function AdminDashboardLayout({ children }) {
   const pathname = usePathname();
   const [state, dispatch] = useCart();
 
+  const signOut = async () => {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/panel/logout`,
+      {
+        method: "GET",
+        credentials: "include",
+      }
+    );
+    const data = await res.json();
+    console.log("logout:", data);
+
+    if (data.success) {
+      window.location.href = "/";
+    }
+  };
+
   return (
     <div>
       <Breadcrumbs />
@@ -48,7 +64,7 @@ function AdminDashboardLayout({ children }) {
           })}
           <button
             className="flex justify-start items-center  p-5 gap-3"
-            onClick={() => signOut()}
+            onClick={signOut}
           >
             <Image alt="" src="/dashboard/logout.svg" width={24} height={24} />
             <p className="text-xl font-medium text-red-600">خروج</p>

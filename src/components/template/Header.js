@@ -32,8 +32,6 @@ function Header() {
     });
   }, [data]);
 
-  console.log("role", state.role);
-
   return (
     <>
       <div className="flex justify-between items-center my-7 max-lg:flex-col max-lg:gap-5">

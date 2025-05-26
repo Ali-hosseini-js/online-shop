@@ -44,7 +44,7 @@ function NewestCard({ data }) {
         <Image
           className="w-full h-[130px]"
           alt={thumbnail}
-          src={`http://localhost:3100/files/main/${images?.[0]}`}
+          src={`${process.env.NEXT_PUBLIC_BASE_URL}/files/main/${images?.[0]}`}
           width={400}
           height={400}
         />

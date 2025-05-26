@@ -10,4 +10,5 @@ export const QueryKeys = {
   ADMIN_SHIPPING: "shipping",
   PRODUCT_DISCOUNT: "discount",
   PRODUCT_NODISCOUNT: "noDiscount",
+  User_ADDRESS: "addressByUser",
 };

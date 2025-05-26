@@ -54,10 +54,7 @@ function CategoryCard({ title, content, image, url, id }) {
             عنوان <span className="text-[#606060]">{title}</span>
           </p>
           <p>
-            توضیحات<span className="text-[#606060]">{content}</span>
-          </p>
-          <p>
-            تصویر<span className="text-[#606060]">{image}</span>
+            توضیحات <span className="text-[#606060]">{content}</span>
           </p>
           <p>
             ادرس<span className="text-[#606060]">{url}</span>
