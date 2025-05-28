@@ -12,7 +12,7 @@ function AddressForm() {
     content: "",
   });
   const { refetch } = useQuery({
-    queryKey: [QueryKeys.ADMIN_ADDRESS],
+    queryKey: [QueryKeys.User_ADDRESS],
     queryFn: getAddress,
     staleTime: 3600,
   });
@@ -20,19 +20,23 @@ function AddressForm() {
   const submitHandler = async (e) => {
     e.preventDefault();
     console.log(form);
-    const res = await fetch(`http://localhost:3100/panel/address`, {
-      method: "POST",
-      credentials: "include",
-      body: JSON.stringify(form),
-      headers: { "Content-Type": "application/json" },
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/panel/address`,
+      {
+        method: "POST",
+        credentials: "include",
+        body: JSON.stringify(form),
+        headers: { "Content-Type": "application/json" },
+      }
+    );
     const data = await res.json();
 
     if (data.error) {
       toast.error(data.message);
     } else {
-      toast.success(data.message);
+      toast.success("آدرس با موفقیت ثبت گردید");
       refetch();
+      setForm({ content: "" });
     }
   };
 
@@ -46,6 +50,7 @@ function AddressForm() {
             <input
               id="content"
               type="text"
+              value={form?.content}
               onChange={(e) => setForm({ ...form, content: e.target.value })}
               className="bg-inherit outline-none text-[#606060] text-xl w-full"
             />

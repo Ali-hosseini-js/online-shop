@@ -51,7 +51,7 @@ function UserCard({ firstName, lastName, mobile, role, id }) {
       <div className="flex justify-between items-center p-7 bg-mainGray">
         <div className="flex items-center gap-5">
           <p>
-            نام و نام خانوادگی
+            نام و نام خانوادگی{" "}
             <span className="text-[#606060]">
               {firstName} {lastName}
             </span>

@@ -56,15 +56,18 @@ function ProductFrom() {
         ? uploadData.fileNames
         : [uploadData.fileNames];
 
-      const productResponse = await fetch("http://localhost:3100/product", {
-        method: "POST",
-        credentials: "include",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...form,
-          images: [...form.images, ...uploadedFiles], // Now always array
-        }),
-      });
+      const productResponse = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/product`,
+        {
+          method: "POST",
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            ...form,
+            images: [...form.images, ...uploadedFiles], // Now always array
+          }),
+        }
+      );
 
       const productData = await productResponse.json();
 

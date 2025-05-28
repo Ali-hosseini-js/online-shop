@@ -22,7 +22,7 @@ function ShippingForm() {
   const submitHandler = async (e) => {
     e.preventDefault();
     console.log(form);
-    const res = await fetch(`http://localhost:3100/shipping`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/shipping`, {
       method: "POST",
       credentials: "include",
       body: JSON.stringify(form),

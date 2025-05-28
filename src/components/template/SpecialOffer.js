@@ -43,7 +43,7 @@ function SpecialOffer() {
               تخفیف های شگفت انگیز
             </p>
             <div className="flex justify-center items-center h-screen">
-              <CountdownTimer date="2025-03-10" time="19:30" />
+              <CountdownTimer date="2025-05-29" time="19:30" />
             </div>
             <div className="flex justify-start w-full absolute bottom-0 right-0">
               <Link

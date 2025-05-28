@@ -16,7 +16,11 @@ function Admin() {
     redirect("/");
   }
 
-  return <div>Admin</div>;
+  return (
+    <div className="w-full">
+      <p className="text-main text-4xl text-center">به پنل ادمین خوش آمدید.</p>
+    </div>
+  );
 }
 
 export default Admin;

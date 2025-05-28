@@ -47,7 +47,7 @@ function CategoryForm() {
 
     try {
       const categoryResponse = await fetch(
-        "http://localhost:3100/product-category",
+        `${process.env.NEXT_PUBLIC_BASE_URL}/product-category`,
         {
           method: "POST",
           credentials: "include",

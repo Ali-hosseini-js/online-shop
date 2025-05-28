@@ -24,7 +24,7 @@ function UserForm() {
   const submitHandler = async (e) => {
     e.preventDefault();
     console.log(form);
-    const res = await fetch(`http://localhost:3100/user`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/user`, {
       method: "POST",
       credentials: "include",
       body: JSON.stringify(form),
@@ -37,6 +37,13 @@ function UserForm() {
     } else {
       toast.success(data.message);
       refetch();
+      setForm({
+        firstName: "",
+        lastName: "",
+        mobile: "",
+        password: "",
+        role: "user",
+      });
     }
   };
 
@@ -50,6 +57,7 @@ function UserForm() {
             <input
               id="firstName"
               type="text"
+              value={form?.firstName}
               onChange={(e) => setForm({ ...form, firstName: e.target.value })}
               className="bg-inherit outline-none text-[#606060] text-xl w-full"
             />
@@ -62,6 +70,7 @@ function UserForm() {
             <input
               id="lastName"
               type="text"
+              value={form?.lastName}
               onChange={(e) => setForm({ ...form, lastName: e.target.value })}
               className="bg-inherit outline-none text-[#606060] text-xl w-full"
             />
@@ -75,6 +84,7 @@ function UserForm() {
             <input
               id="phoneNumber"
               type="tel"
+              value={form?.mobile}
               placeholder="09XXXXXXXXX"
               onChange={(e) => setForm({ ...form, mobile: e.target.value })}
               className="bg-inherit outline-none text-[#606060] text-xl w-full"
@@ -90,6 +100,7 @@ function UserForm() {
               required
               id="password"
               type="password"
+              value={form?.password}
               placeholder="رمز عبور را وارد کنید"
               onChange={(e) => setForm({ ...form, password: e.target.value })}
               className="bg-inherit outline-none text-[#606060] text-xl w-full"
